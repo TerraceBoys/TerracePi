@@ -7,7 +7,8 @@ import time
 import os
 from collections import defaultdict
 
-train_url = 'http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=wX9NwuHnZU2ToO7GmGR9uw&stop=place-rcmnl&format=json'
+access_key = 'MpYsZaqkKkG6p8WOeKHLqA'
+train_url = 'http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=' + access_key + '&stop=place-rcmnl&format=json'
 schedule = defaultdict(list)
 
 def main():
