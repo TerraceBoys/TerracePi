@@ -13,10 +13,11 @@ def main():
             print(spacer)
             grab_weather()
             print(spacer)
-            time.sleep(300)
+            time.sleep(15)
     except:
-        time.sleep(300)
-        print("Error Loading")
+        print("Error Loading, Trying Again")
+        time.sleep(15)
+        main()
 
 
 def grab_weather():
@@ -24,7 +25,6 @@ def grab_weather():
     weather_data = json.loads(response.read().decode())
     print ("Boston Weather:\n")
     print(weather_data['current_observation']['weather'])
-    print(weather_data['current_observation']['icon']) #to display some sort of image
     print(weather_data['current_observation']['feelslike_f'] + " F")
 
 

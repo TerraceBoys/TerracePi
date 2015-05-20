@@ -5,6 +5,7 @@ import urllib.request
 import json
 import time
 import os
+import mbtaTimeDisplay
 from collections import defaultdict
 
 spacer = "-------------------------------------------"
@@ -17,8 +18,8 @@ def main():
         while True:
             print(spacer)
             popDict()
-            popNorth()
-            popSouth()
+            mbtaTimeDisplay.popNorth()
+            mbtaTimeDisplay.popSouth()
             schedule.clear()
             # displayTime()
             print(spacer)
@@ -30,10 +31,8 @@ def main():
 
 
 
-#Dict of all times
-
-
-#test 3 with defaultdict entry
+#Parse all Roxbury Crossing train arrival times
+#Add all times to defaultdict (schedule)
 def popDict():
     response = urllib.request.urlopen(train_url)
     train_data = json.loads(response.read().decode())
@@ -45,26 +44,4 @@ def popDict():
                     schedule[train_data['mode'][x]['route'][0]['direction'][y]['direction_name']].append(
                         int(train_data['mode'][x]['route'][0]['direction'][y]['trip'][z]['pre_away']))
 
-
-
-def popNorth():
-    print("Northbound (Oak Grove)")
-    for x in range (len(schedule['Northbound'])):
-        if (x == 0):
-            m, s = divmod(schedule['Northbound'][x], 60)
-            print ("Next Train: %02d:%02d" % (m, s))
-        else:
-            m, s = divmod(schedule['Northbound'][x], 60)
-            print ("%02d:%02d" % (m, s))
-    print("\n")
-
-def popSouth():
-    print("Southbound (Forrest Hills)")
-    for x in range (len(schedule['Southbound'])):
-        if (x == 0):
-            m, s = divmod(schedule['Southbound'][x], 60)
-            print ("Next Train: %02d:%02d" % (m, s))
-        else:
-            m, s = divmod(schedule['Southbound'][x], 60)
-            print ("%02d:%02d" % (m, s))
 
