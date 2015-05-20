@@ -11,9 +11,9 @@ def main():
     try:
         while True:
             grab_weather()
-            time.sleep(10)
+            time.sleep(300)
     except:
-        time.sleep(10)
+        time.sleep(300)
         print("Error Loading")
 
 
