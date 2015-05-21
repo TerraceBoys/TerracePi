@@ -57,20 +57,29 @@ def run_once(f):
     wrapper.has_run = False
     return wrapper
 
-@run_once
+#Check to see if sms should be sent
 def checkAlert():
-    if (datetime.datetime.now().time() >= datetime.time(hour=10, minute=00) and
+    if (datetime.datetime.now().time() >= datetime.time(hour=9, minute=30) and
             (schedule['Northbound'][0] < 250) and (schedule['Northbound'][0] > 180)):
-        msg = 'Time To Leave bro'
-        to = [sendSMS.branden, sendSMS.brian]
-        sendSMS.send(msg, to)
+        runAlert()
 
-
+#Send sms only once
 @run_once
+def runAlert():
+    msg = 'Time To Leave bro'
+    to = [sendSMS.branden, sendSMS.brian]
+    sendSMS.send(msg, to)
+
+
+#Check to see if sms should be sent
 def rayAlert():
     if (datetime.datetime.now().time() >= datetime.time(hour=7, minute=40) and
-            (schedule['Northbound'][0] < 220) and (schedule['Northbound'][0] > 180)):
-        msg = 'Time To Leave bro'
-        to = [sendSMS.ray]
-        sendSMS.send(msg, to)
+            (schedule['Northbound'][0] < 250) and (schedule['Northbound'][0] > 180)):
+        runRayAlert()
 
+#Send sms only once
+@run_once
+def runRayAlert():
+    msg = 'Time To Leave bro'
+    to = [sendSMS.ray]
+    sendSMS.send(msg, to)
