@@ -1,7 +1,7 @@
 __author__ = 'Terrace Boiz'
 
 
-import urllib.request
+import urllib
 import json
 import time
 import os
@@ -16,16 +16,16 @@ schedule = defaultdict(list)
 def main():
     try:
         while True:
-            print(spacer)
+            print spacer
             popDict()
             mbtaTimeDisplay.popNorth()
             mbtaTimeDisplay.popSouth()
             schedule.clear()
             # displayTime()
-            print(spacer)
+            print spacer
             time.sleep(15)
     except:
-        print("Load Error, Trying Again")
+        print "Load Error, Trying Again"
         time.sleep(15)
         main()
 
@@ -34,9 +34,9 @@ def main():
 #Parse all Roxbury Crossing train arrival times
 #Add all times to defaultdict (schedule)
 def popDict():
-    response = urllib.request.urlopen(train_url)
+    response = urllib.urlopen(train_url)
     train_data = json.loads(response.read().decode())
-    print ("Roxbury Crossing Train Schedule:\n")
+    print "Roxbury Crossing Train Schedule:\n"
     for x in range (len(train_data['mode']) - 1):
         if (train_data['mode'][x]['mode_name'] == 'Subway'):
             for y in range (len(train_data['mode'][x]['route'][0]['direction'])):

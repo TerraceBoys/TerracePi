@@ -1,6 +1,6 @@
-__author__ = 'branden'
+__author__ = 'Terrace Boiz'
 
-import urllib.request
+import urllib
 import json
 import time
 
@@ -10,22 +10,22 @@ spacer = "-------------------------------------------"
 def main():
     try:
         while True:
-            print(spacer)
+            print spacer
             grab_weather()
-            print(spacer)
+            print spacer
             time.sleep(15)
     except:
-        print("Error Loading, Trying Again")
+        print "Error Loading, Trying Again"
         time.sleep(15)
         main()
 
 
 def grab_weather():
-    response = urllib.request.urlopen(weather_url)
+    response = urllib.urlopen(weather_url)
     weather_data = json.loads(response.read().decode())
-    print ("Boston Weather:\n")
-    print(weather_data['current_observation']['weather'])
-    print(weather_data['current_observation']['feelslike_f'] + " F")
+    print "Boston Weather:\n"
+    print weather_data['current_observation']['weather']
+    print weather_data['current_observation']['feelslike_f'] + " F"
 
 
 
