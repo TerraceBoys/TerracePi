@@ -59,8 +59,8 @@ def run_once(f):
 
 @run_once
 def checkAlert():
-    if (datetime.datetime.now().time() >= datetime.time(hour=9, minute=30) and
-            (schedule['Northbound'][0] < 220) and (schedule['Northbound'][0] > 180)):
+    if (datetime.datetime.now().time() >= datetime.time(hour=10, minute=00) and
+            (schedule['Northbound'][0] < 250) and (schedule['Northbound'][0] > 180)):
         msg = 'Time To Leave bro'
         to = [sendSMS.branden, sendSMS.brian]
         sendSMS.send(msg, to)
