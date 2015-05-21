@@ -9,7 +9,7 @@ password = 'TerraceRaspberryPi'
 fromaddr = 'terraceraspberrySMS@gmail.com'
 brian  = '5086889360@vtext.com'
 branden = '6039655776@vtext.com'
-ray = '6318977618@vtext.com'
+ray = '6318977618@txt.att.net'
 
 
 
