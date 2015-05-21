@@ -3,7 +3,7 @@ __author__ = 'Terrace Boiz'
 
 import mbtaJsonParse
 
-
+#print all northbound train times
 def popNorth():
     print "Northbound (Oak Grove)"
     for x in range (len(mbtaJsonParse.schedule['Northbound'])):
@@ -17,6 +17,7 @@ def popNorth():
     print "\n"
 
 
+#Print all southbound train times
 def popSouth():
     print "Southbound (Forrest Hills)"
     for x in range (len(mbtaJsonParse.schedule['Southbound'])):
@@ -30,11 +31,11 @@ def popSouth():
     print "\n"
 
 
-#Formatt the arrival times
+#Format the arrival times
 def timeHandler(m, s):
     if (m <= 1 and s <= 10):
-        print "BRD"
+        print "%02d:%02d (BRD)" % (m, s)
     elif (m <= 1):
-        print "ARR"
+        print "%02d:%02d (ARR)" % (m, s)
     else:
         print "%02d:%02d" % (m, s)

@@ -15,7 +15,7 @@ def main():
             print spacer
             time.sleep(15)
     except:
-        print "Error Loading, Trying Again"
+        print "Error Loading Weather, Trying Again"
         time.sleep(15)
         main()
 
@@ -26,7 +26,6 @@ def grab_weather():
     print "Boston Weather:\n"
     print weather_data['current_observation']['weather']
     print weather_data['current_observation']['feelslike_f'] + " F"
-
 
 
 if __name__ == "__main__":
