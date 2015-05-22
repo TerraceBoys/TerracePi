@@ -14,7 +14,7 @@ def main():
             grab_weather()
             print spacer
             time.sleep(15)
-    except:
+    except (IOError):
         print "Error Loading Weather, Trying Again"
         time.sleep(15)
         main()

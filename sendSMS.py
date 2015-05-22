@@ -14,10 +14,8 @@ weekdays = [0,1,2,3,4]
 summerWeekdays = [0,1,2,3]
 
 rayTime = [7,40,8,20]
-brianTime = [9,30,10,0]
+brianTime = [9,30,20,0]
 brandenTime = [9,30,10,0]
-
-
 
 
 #Login to email client and send message
@@ -44,7 +42,6 @@ def run_once(f):
     wrapper.has_run = False
     return wrapper
 
-
 ################# ALERTS FOR BRANDEN ###########################
 
 # Check to see if sms should be sent
@@ -65,8 +62,9 @@ def runBrandenAlert():
 
 #Check to see if sms should be sent
 def brianAlert(nextTrain):
-    if (timeCheck(*brianTime) and 180 < nextTrain < 250 and (dayCheck(summerWeekdays))):
+    if (timeCheck(*brianTime) and 180 < nextTrain < 600):
         runBrianAlert()
+
 
 # Send sms only once
 @run_once

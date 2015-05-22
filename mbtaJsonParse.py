@@ -28,7 +28,7 @@ def main():
             schedule.clear()             #clear schedule dict
             print spacer
             time.sleep(15)               #sleep
-    except:
+    except (IOError):
         print "Load Error for mbta, Trying Again"
         time.sleep(15)
         main()
