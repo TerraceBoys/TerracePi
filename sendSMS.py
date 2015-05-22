@@ -14,7 +14,7 @@ weekdays = [0,1,2,3,4]
 summerWeekdays = [0,1,2,3]
 
 rayTime = [7,40,8,20]
-brianTime = [9,30,20,0]
+brianTime = [9,30,10,0]
 brandenTime = [9,30,10,0]
 
 
@@ -62,7 +62,7 @@ def runBrandenAlert():
 
 #Check to see if sms should be sent
 def brianAlert(nextTrain):
-    if (timeCheck(*brianTime) and 180 < nextTrain < 600):
+    if (timeCheck(*brianTime) and 180 < nextTrain < 250 and dayCheck(summerWeekdays)):
         runBrianAlert()
 
 
