@@ -4,9 +4,7 @@ __author__ = 'Terrace Boiz'
 import urllib
 import json
 import time
-import datetime
 import sendSMS
-import os
 import mbtaTimeDisplay
 from collections import defaultdict
 
@@ -23,9 +21,10 @@ def main():
             popDict()                    #populate schedule dict
             mbtaTimeDisplay.popNorth()   #print northbound times
             mbtaTimeDisplay.popSouth()   #print southbound times
-            sendSMS.brandenAlert()       #check for branden alerts
-            sendSMS.brianAlert()         #check for brian alerts
-            sendSMS.rayAlert()           #check for ray alerts
+            for nextTrain in schedule['Northbound']:
+                sendSMS.brandenAlert(nextTrain)       #check for branden alerts
+                sendSMS.brianAlert(nextTrain)         #check for brian alerts
+                sendSMS.rayAlert(nextTrain)           #check for ray alerts
             schedule.clear()             #clear schedule dict
             print spacer
             time.sleep(15)               #sleep
