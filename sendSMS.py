@@ -76,12 +76,6 @@ def runBrianAlert():
     print 'Sending Brian an Alert'
     send(msg, to)
 
-def logSMS(name):
-    today = datetime.datetime.now()
-    text_file = open('/home/pi/Desktop/smsLog.txt', "w")
-    text_file.write(today + ": Sending " + name + " a text alert")
-    text_file.close()
-
 
 ################# ALERTS FOR RAY ###########################
 
@@ -115,4 +109,10 @@ def dayCheck(days):
         if (d == today):
             return True
     return False
+
+def logSMS(name):
+    today = datetime.datetime.now().strftime('%c')
+    text_file = open('/home/pi/Desktop/smsLog.txt', "w")
+    text_file.write(today + ": Sending " + name + " a text alert")
+    text_file.close()
 
