@@ -1,11 +1,11 @@
 __author__ = 'Terrace Boiz'
 
 import mbtaJsonParse
-import weather
+import Weather
 import Queue
 import threading
 
-files = [mbtaJsonParse, weather]
+files = [mbtaJsonParse, Weather]
 q = Queue.Queue()
 
 def runMain(q, file):
