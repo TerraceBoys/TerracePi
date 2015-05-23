@@ -54,9 +54,7 @@ def brandenAlert(nextTrain):
 def runBrandenAlert():
     msg = 'Time To Leave bro'
     to = [branden]
-    text_file = open('/home/pi/Desktop/smsLog.txt', "w")
-    text_file.write("Sending Branden a text alert")
-    text_file.close()
+    logSMS("Branden")
     print 'Sending Branden an Alert'
     send(msg, to)
 
@@ -74,11 +72,15 @@ def brianAlert(nextTrain):
 def runBrianAlert():
     msg = 'Time To Leave bro'
     to = [brian]
-    text_file = open('/home/pi/Desktop/smsLog.txt', "w")
-    text_file.write("Sending Brian a text alert")
-    text_file.close()
+    logSMS("Brian")
     print 'Sending Brian an Alert'
     send(msg, to)
+
+def logSMS(name):
+    today = datetime.datetime.now()
+    text_file = open('/home/pi/Desktop/smsLog.txt', "w")
+    text_file.write(today + ": Sending " + name + " a text alert")
+    text_file.close()
 
 
 ################# ALERTS FOR RAY ###########################
@@ -93,9 +95,7 @@ def rayAlert(nextTrain):
 def runRayAlert():
     msg = 'Time To Leave bro'
     to = [ray]
-    text_file = open('/home/pi/Desktop/smsLog.txt', "w")
-    text_file.write("Sending Ray a text alert")
-    text_file.close()
+    logSMS("Ray")
     print 'Sending Ray an Alert'
     send(msg, to)
 
