@@ -14,7 +14,7 @@ weekdays = [0,1,2,3,4]
 summerWeekdays = [0,1,2,3]
 
 rayTime = [7,40,8,20]
-brianTime = [9,30,10,0]
+brianTime = [9,30,23,59]
 brandenTime = [9,30,10,0]
 
 
@@ -54,6 +54,9 @@ def brandenAlert(nextTrain):
 def runBrandenAlert():
     msg = 'Time To Leave bro'
     to = [branden]
+    text_file = open('/home/pi/Desktop/smsLog.txt', "w")
+    text_file.write("Sending Branden a text alert")
+    text_file.close()
     print 'Sending Branden an Alert'
     send(msg, to)
 
@@ -62,7 +65,7 @@ def runBrandenAlert():
 
 #Check to see if sms should be sent
 def brianAlert(nextTrain):
-    if (timeCheck(*brianTime) and 180 < nextTrain < 250 and dayCheck(summerWeekdays)):
+    if (timeCheck(*brianTime) and 180 < nextTrain < 750 and dayCheck(weekdays)):
         runBrianAlert()
 
 
@@ -71,6 +74,9 @@ def brianAlert(nextTrain):
 def runBrianAlert():
     msg = 'Time To Leave bro'
     to = [brian]
+    text_file = open('/home/pi/Desktop/smsLog.txt', "w")
+    text_file.write("Sending Brian a text alert")
+    text_file.close()
     print 'Sending Brian an Alert'
     send(msg, to)
 
@@ -80,13 +86,16 @@ def runBrianAlert():
 # Check to see if sms should be sent
 def rayAlert(nextTrain):
     if (timeCheck(*rayTime) and 180 < nextTrain < 250 and (dayCheck(weekdays))):
-        runBrianAlert()
+        runRayAlert()
 
 # Send sms only once
 @run_once
 def runRayAlert():
     msg = 'Time To Leave bro'
     to = [ray]
+    text_file = open('/home/pi/Desktop/smsLog.txt', "w")
+    text_file.write("Sending Ray a text alert")
+    text_file.close()
     print 'Sending Ray an Alert'
     send(msg, to)
 
