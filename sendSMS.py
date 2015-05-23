@@ -14,7 +14,7 @@ weekdays = [0,1,2,3,4]
 summerWeekdays = [0,1,2,3]
 
 rayTime = [7,40,8,20]
-brianTime = [9,30,23,59]
+brianTime = [9,30,10,0]
 brandenTime = [9,30,10,0]
 
 
@@ -55,7 +55,6 @@ def runBrandenAlert():
     msg = 'Time To Leave bro'
     to = [branden]
     logSMS("Branden")
-    print 'Sending Branden an Alert'
     send(msg, to)
 
 
@@ -63,7 +62,7 @@ def runBrandenAlert():
 
 #Check to see if sms should be sent
 def brianAlert(nextTrain):
-    if (timeCheck(*brianTime) and 180 < nextTrain < 750 and dayCheck(weekdays)):
+    if (timeCheck(*brianTime) and 180 < nextTrain < 250 and dayCheck(weekdays)):
         runBrianAlert()
 
 
@@ -73,7 +72,6 @@ def runBrianAlert():
     msg = 'Time To Leave bro'
     to = [brian]
     logSMS("Brian")
-    print 'Sending Brian an Alert'
     send(msg, to)
 
 
@@ -90,7 +88,6 @@ def runRayAlert():
     msg = 'Time To Leave bro'
     to = [ray]
     logSMS("Ray")
-    print 'Sending Ray an Alert'
     send(msg, to)
 
 
