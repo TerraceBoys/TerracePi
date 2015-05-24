@@ -8,16 +8,30 @@ import sendSMS
 
 username = 'terraceraspberrySMS@gmail.com'
 password = 'TerraceRaspberryPi'
+alerts = {}
 
 
 def main():
     try:
         while True:
+            handleAlerts()
             handleMail()
     except:
         print "No new mail"
         time.sleep(15)
         main()
+
+
+def handleAlerts():
+    for key in alerts:
+        hrs, mins = alerts[key].split(':')
+        if (sendSMS.timeCheck(*[int(hrs), int(mins), int(hrs), int(mins)+5])): #check against arriving train times
+            sendSMS.runBrandenAlert() #Replace with sendCustomAlert(key, alerts[key]) <-sends text to specified person
+            print key
+            print "Hours: " + hrs
+            print "Minutes: " + mins
+            del alerts[key]
+
 
 
 def handleMail():
@@ -45,9 +59,12 @@ def handleMail():
     email_message = email.message_from_string(raw_email)
 
     fromAddr = email_message['From']
+    person = fromAddr.split(' ', 1)[0].lower()
     emailBody = get_body(email_message)
+    alerts[person] = emailBody
     print "New Email From: " + fromAddr
     print "Body: " + emailBody
+    mail.logout()
 
 
 
@@ -65,6 +82,7 @@ def get_body(email_message_instance):
 
 
 #Gets rid of email signature
+#formats time
 def trim_body(email_body):
     result = ""
     for letter in range (len(email_body)):
@@ -72,6 +90,7 @@ def trim_body(email_body):
             return result
         else:
             result += email_body[letter]
+
 
 
 if __name__ == "__main__":
