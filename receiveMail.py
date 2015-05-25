@@ -49,7 +49,7 @@ def handleMail():
     mail.login(username, password)
     mail.list()
     mail.select("inbox") # connect to inbox.
-
+    print "logged in"
     #Read emails that are unread and contain the subject "alert"
     result, data = mail.search(None, '(HEADER Subject "times" UNSEEN)')
 
