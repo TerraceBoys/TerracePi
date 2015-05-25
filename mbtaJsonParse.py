@@ -4,8 +4,7 @@ __author__ = 'Terrace Boiz'
 import urllib
 import json
 import time
-import sendSMS
-import mbtaTimeDisplay
+import sendSMS, mbtaTimeDisplay
 from collections import defaultdict
 
 spacer = "-------------------------------------------"
@@ -24,10 +23,10 @@ def main():
             for nextTrain in schedule['Northbound']:
                 sendSMS.brandenAlert(nextTrain)       #check for branden alerts
                 sendSMS.brianAlert(nextTrain)         #check for brian alerts
-                sendSMS.rayAlert(nextTrain)           #check for ray alerts
-            schedule.clear()             #clear schedule dict
+                sendSMS.raymondAlert(nextTrain)           #check for ray alerts
             print spacer
             time.sleep(15)               #sleep
+            schedule.clear()             #clear schedule dict
     except (IOError):
         print "Load Error for mbta, Trying Again"
         time.sleep(15)

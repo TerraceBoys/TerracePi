@@ -2,6 +2,7 @@ __author__ = 'Terrace Boiz'
 
 import smtplib
 import datetime
+import sys
 
 username = 'terraceraspberrySMS'
 password = 'TerraceRaspberryPi'
@@ -35,18 +36,32 @@ def send(msg, toaddr):
 
 # So methods can run once a day
 def run_once(f):
+    global sendCustom
     def wrapper():
         if not wrapper.has_run:
             wrapper.has_run = True
             return f()
+        elif sendCustom:
+            return f()
+    sendCustom = False
     wrapper.has_run = False
     return wrapper
+
+
+#Sends a custom alert one time to specified person
+def sendCustomSMS(person):
+    global sendCustom
+    sendCustom = True
+    getattr(sys.modules[__name__], "run%sAlert" % person)()
+    sendCustom = False
 
 ################# ALERTS FOR BRANDEN ###########################
 
 # Check to see if sms should be sent
 def brandenAlert(nextTrain):
-    if (timeCheck(*brandenTime) and 180 < nextTrain < 250 and (dayCheck(summerWeekdays))):
+    global sendCustom
+    sendCustom = False
+    if (timeCheck(*brandenTime) and 180 < nextTrain < 250 and dayCheck(weekdays)):
         runBrandenAlert()
 
 # Send sms only once
@@ -54,14 +69,16 @@ def brandenAlert(nextTrain):
 def runBrandenAlert():
     msg = 'Time To Leave bro'
     to = [branden]
-    logSMS("Branden")
     send(msg, to)
+    logSMS("Branden")
 
 
 ################# ALERTS FOR BRIAN ###########################
 
 #Check to see if sms should be sent
 def brianAlert(nextTrain):
+    global sendCustom
+    sendCustom = False
     if (timeCheck(*brianTime) and 180 < nextTrain < 250 and dayCheck(weekdays)):
         runBrianAlert()
 
@@ -71,24 +88,26 @@ def brianAlert(nextTrain):
 def runBrianAlert():
     msg = 'Time To Leave bro'
     to = [brian]
-    logSMS("Brian")
     send(msg, to)
+    logSMS("Brian")
 
 
 ################# ALERTS FOR RAY ###########################
 
 # Check to see if sms should be sent
-def rayAlert(nextTrain):
-    if (timeCheck(*rayTime) and 180 < nextTrain < 250 and (dayCheck(weekdays))):
-        runRayAlert()
+def raymondAlert(nextTrain):
+    global sendCustom
+    sendCustom = False
+    if (timeCheck(*rayTime) and 180 < nextTrain < 250 and dayCheck(weekdays)):
+        runRaymondAlert()
 
 # Send sms only once
 @run_once
-def runRayAlert():
+def runRaymondAlert():
     msg = 'Time To Leave bro'
     to = [ray]
-    logSMS("Ray")
     send(msg, to)
+    logSMS("Ray")
 
 
 ################# TIME AND DAY CHECKS ###########################
