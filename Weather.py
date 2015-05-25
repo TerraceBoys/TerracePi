@@ -14,10 +14,10 @@ def main():
             print spacer
             grab_weather()
             print spacer
-            time.sleep(60)
+            time.sleep(300)
     except (IOError):
         print "Error Loading Weather, Trying Again"
-        time.sleep(60)
+        time.sleep(300)
         main()
 
 
