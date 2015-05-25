@@ -4,7 +4,8 @@ import urllib
 import json
 import time
 
-weather_url = 'http://api.wunderground.com/api/aceec2d6587b3b0c/conditions/q/MA/Boston.json'
+access_key = 'aceec2d6587b3b0c'
+weather_url = 'http://api.wunderground.com/api/' + access_key + '/conditions/q/MA/Boston.json'
 spacer = "-------------------------------------------"
 
 def main():
@@ -13,10 +14,10 @@ def main():
             print spacer
             grab_weather()
             print spacer
-            time.sleep(15)
+            time.sleep(60)
     except (IOError):
         print "Error Loading Weather, Trying Again"
-        time.sleep(15)
+        time.sleep(60)
         main()
 
 

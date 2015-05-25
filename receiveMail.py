@@ -6,7 +6,7 @@ import email
 import time
 import sendSMS, mbtaJsonParse
 
-username = 'terraceraspberrySMS@gmail.com'
+username = 'terraceraspberrysms@gmail.com'
 password = 'TerraceRaspberryPi'
 alerts = {}
 
@@ -20,55 +20,64 @@ def main():
             handleAlerts()
             handleMail()
     except:
+        print "Error in receiveMail"
         time.sleep(15)
         main()
 
 #Handle custom alerts if they exist
 def handleAlerts():
+    remove = []
     for person in alerts:
         hrs, mins = alerts[person].split(':')
         hrs = int(hrs)
         mins = int(mins)
         if (sendSMS.timeCheck(*[hrs, mins, 23, 59])):
-            for train in mbtaJsonParse.schedule['Northbound']:
-                if (180 < train < 250):
-                    sendSMS.sendCustomSMS(person)
+            for nextTrain in mbtaJsonParse.schedule['Northbound']:
+                if (180 < nextTrain < 250):
+                    sendSMS.sendCustomSMS(person, nextTrain)
                     print "Custom alert sent to: " + person
-                    del alerts[person]
+                    remove.append(person)
                     print person + " removed from custom alert list"
-
+    for person in remove:
+        del alerts[person]
 
 
 def handleMail():
     global fromAddr
     global emailBody
+    global mail
     fromAddr = ""
     emailBody = ""
+
 
     mail = imaplib.IMAP4_SSL('imap.gmail.com')
     mail.login(username, password)
     mail.list()
     mail.select("inbox") # connect to inbox.
-    print "logged in"
-    #Read emails that are unread and contain the subject "alert"
-    result, data = mail.search(None, '(HEADER Subject "times" UNSEEN)')
 
-    ids = data[0]                 # data is a list.
-    id_list = ids.split()         # ids is a space separated string
-    oldest_email_id = id_list[0]  # get the oldest
+    try:
+        #Read emails that are unread and contain the subject "alert"
+        result, data = mail.search(None, '(HEADER Subject "times" UNSEEN)')
 
-    result, data = mail.fetch(oldest_email_id, "(RFC822)") # fetch the email body (RFC822) for the given ID
+        ids = data[0]                 # data is a list.
+        id_list = ids.split()         # ids is a space separated string
+        oldest_email_id = id_list[0]  # get the oldest
 
-    raw_email = data[0][1]# here's the body, which is raw text of the whole email
+        result, data = mail.fetch(oldest_email_id, "(RFC822)") # fetch the email body (RFC822) for the given ID
 
-    email_message = email.message_from_string(raw_email)
-    print "got message"
-    fromAddr = email_message['From']                        #get complete from address (e.g Branden Rodgers <branden@rodgersworld.com>)
-    person = fromAddr.split(' ', 1)[0].replace("\"", '')    #Format from address into just first name
-    emailBody = get_body(email_message)                     #Get only the time from the email body
-    alerts[person] = emailBody                              #Enter into dict
-    print "New Custom Alert From: " + fromAddr + " set to " + emailBody
-    mail.logout()
+        raw_email = data[0][1]# here's the body, which is raw text of the whole email
+
+        email_message = email.message_from_string(raw_email)
+
+        fromAddr = email_message['From']                        #get complete from address (e.g Branden Rodgers <branden@rodgersworld.com>)
+        person = fromAddr.split(' ', 1)[0].replace("\"", '')    #Format from address into just first name
+        emailBody = get_body(email_message)                     #Get only the time from the email body
+        alerts[person] = emailBody                              #Enter into dict
+        print "New Custom Alert From: " + fromAddr + " set to " + emailBody
+        mail.logout()
+    except:
+        mail.logout()
+
 
 
 #Gets the email body

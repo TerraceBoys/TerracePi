@@ -23,7 +23,7 @@ def main():
             for nextTrain in schedule['Northbound']:
                 sendSMS.brandenAlert(nextTrain)       #check for branden alerts
                 sendSMS.brianAlert(nextTrain)         #check for brian alerts
-                sendSMS.raymondAlert(nextTrain)           #check for ray alerts
+                sendSMS.raymondAlert(nextTrain)       #check for ray alerts
             print spacer
             time.sleep(15)               #sleep
             schedule.clear()             #clear schedule dict
@@ -40,14 +40,15 @@ def popDict():
     train_data = json.loads(response.read().decode())
     print "Roxbury Crossing Train Schedule:\n"
     #for all Roxbury train data
-    for x in range (len(train_data['mode']) - 1):
-        #If the mode is subway
-        if (train_data['mode'][x]['mode_name'] == 'Subway'):
+    if (len(train_data) > 1):
+        for x in range (len(train_data['mode']) - 1):
+         #If the mode is subway
+            if (train_data['mode'][x]['mode_name'] == 'Subway'):
             #for each direction
-            for y in range (len(train_data['mode'][x]['route'][0]['direction'])):
+                for y in range (len(train_data['mode'][x]['route'][0]['direction'])):
                 #For each train
-                for z in range (len(train_data['mode'][x]['route'][0]['direction'][y]['trip'])):
+                    for z in range (len(train_data['mode'][x]['route'][0]['direction'][y]['trip'])):
                     #add each train to the schedule dict -> schedule['direction'].append(pre_away)
-                    schedule[train_data['mode'][x]['route'][0]['direction'][y]['direction_name']].append(
-                        int(train_data['mode'][x]['route'][0]['direction'][y]['trip'][z]['pre_away']))
+                        schedule[train_data['mode'][x]['route'][0]['direction'][y]['direction_name']].append(
+                         int(train_data['mode'][x]['route'][0]['direction'][y]['trip'][z]['pre_away']))
 

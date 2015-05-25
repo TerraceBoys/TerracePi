@@ -8,11 +8,11 @@ def popNorth():
     print "Northbound (Oak Grove)"
     for x in range (len(mbtaJsonParse.schedule['Northbound'])):
         if (x == 0):
-            m, s = divmod(mbtaJsonParse.schedule['Northbound'][x], 60)
             print "Next Train:",
+            m, s = secsToMins(mbtaJsonParse.schedule['Northbound'][x])
             timeHandler(m, s)
         else:
-            m, s = divmod(mbtaJsonParse.schedule['Northbound'][x], 60)
+            m, s = secsToMins(mbtaJsonParse.schedule['Northbound'][x])
             timeHandler(m, s)
     print "\n"
 
@@ -22,13 +22,19 @@ def popSouth():
     print "Southbound (Forrest Hills)"
     for x in range (len(mbtaJsonParse.schedule['Southbound'])):
         if (x == 0):
-            m, s = divmod(mbtaJsonParse.schedule['Southbound'][x], 60)
             print "Next Train:",
+            m, s = secsToMins(mbtaJsonParse.schedule['Southbound'][x])
             timeHandler(m, s)
         else:
-            m, s = divmod(mbtaJsonParse.schedule['Southbound'][x], 60)
+            m, s = secsToMins(mbtaJsonParse.schedule['Southbound'][x])
             timeHandler(m, s)
     print "\n"
+
+
+#Convert seconds into minutes and seconds
+def secsToMins(seconds):
+    m, s = divmod(seconds, 60)
+    return (m, s)
 
 
 #Format the arrival times
