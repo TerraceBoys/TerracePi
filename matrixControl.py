@@ -1,3 +1,4 @@
+4
 __author__ = 'Terrace Boiz'
 
 #!/usr/bin/python
@@ -16,6 +17,8 @@ __author__ = 'Terrace Boiz'
 
 import Image
 import ImageDraw
+import ImageColor
+import ImageFont
 import time
 from rgbmatrix import Adafruit_RGBmatrix
 
@@ -23,18 +26,29 @@ from rgbmatrix import Adafruit_RGBmatrix
 matrix = Adafruit_RGBmatrix(32, 2)
 
 # Bitmap example w/graphics prims
-image = Image.new("1", (32, 32)) # Can be larger than matrix if wanted!!
+image = Image.new("1", (64, 32)) # Can be larger than matrix if wanted!!
 draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
 # Draw some shapes into image (no immediate effect on matrix)...
-draw.rectangle((0, 0, 31, 31), fill=0, outline=1)
-draw.line((0, 0, 31, 31), fill=1)
-draw.line((0, 31, 31, 0), fill=1)
+#draw.rectangle((0, 0, 31, 31), fill=128)
+#draw.line((0, 0, 31, 31), fill=1)
+draw.line((0, 31, 31, 0), fill="red")
 # Then scroll image across matrix...
-matrix.Clear()
+#matrix.Clear()
 # IMPORTANT: *MUST* pass image ID, *NOT* image object!
-matrix.SetImage(image.im.id, 0, 0)
-time.sleep(5)
+#matrix.SetImage(image.im.id, 16, 0)
+#time.sleep(5)
 matrix.Clear()
+#c = ImageColor.getrgb('red')
 
+#c = (255, 0, 0)
+#font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",35)
+
+
+#draw.text((0,0),"Fuckkkkkk", font=font, fill = "red")
+matrix.SetImage(image.im.id, 0, 0)
+#draw.text((12,22), "Ray", fill=45)
+#matrix.SetImage(image.im.id,0,0)
+time.sleep(7);
+matrix.Clear();
 
 
