@@ -30,11 +30,10 @@ draw.rectangle((0, 0, 31, 31), fill=0, outline=1)
 draw.line((0, 0, 31, 31), fill=1)
 draw.line((0, 31, 31, 0), fill=1)
 # Then scroll image across matrix...
-for n in range(-32, 33): # Start off top-left, move off bottom-right
-        matrix.Clear()
-        # IMPORTANT: *MUST* pass image ID, *NOT* image object!
-        matrix.SetImage(image.im.id, n, n)
-        time.sleep(0.05)
+matrix.Clear()
+# IMPORTANT: *MUST* pass image ID, *NOT* image object!
+matrix.SetImage(image.im.id, 0, 0)
+time.sleep(5)
 
 
 
