@@ -89,6 +89,7 @@ def dayCheck(days):
             return True
     return False
 
+###################### SMS LOG #################################
 def logSMS(name, msg):
     try:
         p = platform.uname()
