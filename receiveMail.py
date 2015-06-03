@@ -4,7 +4,7 @@ __author__ = 'branden'
 import imaplib
 import email
 import time
-import People
+import People, insulter
 
 
 
@@ -54,18 +54,19 @@ def handleMail():
         email_message = email.message_from_string(raw_email)
 
         fromAddr = email_message['From']                        #get complete from address (e.g Branden Rodgers <branden@rodgersworld.com>)
-        person = fromAddr.split(' ', 1)[0].replace("\"", '')    #Format from address into just first name
+        sender = fromAddr.split(' ', 1)[0].replace("\"", '')    #Format from address into just first name
         emailBody = get_body(email_message)                     #Get only the email body
 
         subject = email_message['Subject'].lower()
         if subject == "alert":
             info = str.split(emailBody)
             # Station, direction, time, distance
-            People.addAlert(person, info[0], info[1], info[2], int(info[3]))
+            People.addAlert(sender, info[0], info[1], info[2], int(info[3]))
             print "New Custom Alert From: " + fromAddr + " set to " + emailBody
-        elif subject == "times":
+        elif subject == "insult":
             info = str.split(emailBody)
-            #send times for specific station and direction
+            print "New Insult From: " + fromAddr + " sending to " + info[0]
+            insulter.send_Insult(sender, info)
 
         mail.logout()
     except:

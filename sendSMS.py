@@ -23,6 +23,7 @@ def send(msg, toaddr):
         print("Error logging-in to email client. Trying again")
         send(msg, toaddr)
     for t in toaddr:
+        print "sending message: " + msg + " to " + t
         server.sendmail(fromaddr, t, msg)
     server.quit()
 

@@ -25,8 +25,14 @@ summerWeekdays = [0,1,2,3]
 branden = Person('Branden', '6039655776@vtext.com', [9,30,10,0], summerWeekdays)
 brian = Person('Brian', '5086889360@vtext.com', [9,30,10,0], summerWeekdays)
 ray = Person('Raymond', '6318977618@txt.att.net', [7,40,8,20], weekdays)
+corinne = Person('Corinne', '7746446908@tmomail.net', None, None)
+allison = Person('Allison', '8608037963@vtext.com', None, None)
+mark = Person('Mark', '2018350105@vtext.com', None, None)
+jj = Person('JJ', '2153017800@vtext.com', None, None)
+allie = Person('Allie', '2019650132@txt.att.net', None, None)
 
 allPeople = [branden, brian, ray]
+insultPeople = [branden, brian, ray, corinne, allison, mark, jj, allie]
 
 
 def addAlert(name, station, direction, time, dist):
