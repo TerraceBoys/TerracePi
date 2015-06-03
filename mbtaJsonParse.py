@@ -24,8 +24,8 @@ def main():
             popDict(schedule, 'Roxbury')  #populate schedule dict
             mbtaTimeDisplay.popNorth()   #print northbound times
             mbtaTimeDisplay.popSouth()   #print southbound times
-            for nextTrain in schedule['Northbound']:
-                for guy in People.allPeople:
+            for guy in People.allPeople:
+                for nextTrain in schedule['Northbound']:
                     sendSMS.dailyAlert(nextTrain, guy)
             print spacer
             time.sleep(15)               #sleep

@@ -2,7 +2,8 @@ __author__ = 'Terrace Boiz'
 
 import smtplib
 import datetime
-import sys
+import os
+import platform
 import mbtaTimeDisplay, People
 
 
@@ -22,7 +23,8 @@ def send(msg, person):
     except:
         print("Error logging-in to email client. Trying again")
         send(msg, person)
-    print "sending message: " + msg + " to " + person.name
+    r = msg.replace("\n", " ")
+    print 'Sending message: ' + '"' + r + '"' + ' to ' + person.name
     server.sendmail(fromaddr, person.number, msg)
     logSMS(person.name, msg)
     server.quit()
@@ -65,8 +67,8 @@ def dailyAlert(nextTrain, person):
     sendCustom = False
     if person.waitingOnDaily:
         sendCustom = True
-        if (timeCheck(*People.branden.dailyTimes) and 180 < nextTrain < 250 and dayCheck(People.branden.dailyDays)):
-            runAlert(nextTrain, People.branden)
+        if (timeCheck(*person.dailyTimes) and 180 < nextTrain < 250 and dayCheck(person.dailyDays)):
+            runAlert(nextTrain, person)
             sendCustom = False
             person.waitingOnDaily = False
 
@@ -88,11 +90,23 @@ def dayCheck(days):
     return False
 
 def logSMS(name, msg):
+    try:
+        p = platform.uname()
+    except:
+        p = os.uname()
+
+    if p[0] == 'Windows':
+        path = 'C:/Users/Brian Cox/Desktop/smsLog.txt'
+    elif p[0] == 'Linx' or 'Linux2':
+        path = '/home/pi/Desktop/smsLog.txt'
+    elif p[0] == 'Darwin':
+        path = '/Users/branden/Desktop/smsLog.txt'
+    else:
+        raise ValueError('Platform was not identified correctly')
+
+    text_file = open(path, "a")
     today = datetime.datetime.now().strftime('%c')
     r = msg.replace("\n", " ")
-    print msg.strip('\n')
-    #text_file = open('C:/Users/Brian Cox/Desktop/smsLog.txt', "a")
-    text_file = open('/home/pi/Desktop/smsLog.txt', "a")
     text_file.write(today + ": Sending " + name + ' - "' + r + '"' + "\n")
     text_file.close()
 
