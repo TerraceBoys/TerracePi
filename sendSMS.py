@@ -91,6 +91,6 @@ def dayCheck(days):
 def logSMS(name):
     today = datetime.datetime.now().strftime('%c')
     text_file = open('/home/pi/Desktop/smsLog.txt', "a")
-    text_file.write(today + ": Sending " + name + " a text alert")
+    text_file.write(today + ": Sending " + name + " a text alert" + "\n")
     text_file.close()
 
