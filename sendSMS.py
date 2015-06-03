@@ -13,7 +13,7 @@ fromaddr = 'terraceraspberrySMS@gmail.com'
 
 
 #Login to email client and send message
-def send(msg, toaddr):
+def send(msg, person):
     server = smtplib.SMTP()
     try:
         server = smtplib.SMTP('smtp.gmail.com:587')
@@ -21,10 +21,10 @@ def send(msg, toaddr):
         server.login(username, password)
     except:
         print("Error logging-in to email client. Trying again")
-        send(msg, toaddr)
-    for t in toaddr:
-        print "sending message: " + msg + " to " + t
-        server.sendmail(fromaddr, t, msg)
+        send(msg, person)
+    print "sending message: " + msg + " to " + person.name
+    server.sendmail(fromaddr, person.number, msg)
+    logSMS(person.name, msg)
     server.quit()
 
 
@@ -55,9 +55,7 @@ def runAlert(nextTrain, person):
     m, s = mbtaTimeDisplay.secsToMins(nextTrain)
     time = str(m) + 'mins and ' + str(s) + 'seconds'
     msg = 'Time To Leave bro. Train comes in ' + time
-    to = [person.number]
-    send(msg, to)
-    logSMS(person.name)
+    send(msg, person)
 
 ################# DAILY ALERTS ###########################
 
@@ -89,9 +87,12 @@ def dayCheck(days):
             return True
     return False
 
-def logSMS(name):
+def logSMS(name, msg):
     today = datetime.datetime.now().strftime('%c')
+    r = msg.replace("\n", " ")
+    print msg.strip('\n')
+    #text_file = open('C:/Users/Brian Cox/Desktop/smsLog.txt', "a")
     text_file = open('/home/pi/Desktop/smsLog.txt', "a")
-    text_file.write(today + ": Sending " + name + " a text alert" + "\n")
+    text_file.write(today + ": Sending " + name + ' - "' + r + '"' + "\n")
     text_file.close()
 

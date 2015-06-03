@@ -25,7 +25,7 @@ def send_Insult(sender, recipient):
     for r in recipient:
         for p in People.insultPeople:
             if p.name == r:
-                sendSMS.send(insult, [p.number])
+                sendSMS.send(insult, p)
                 break
 
 if __name__ == '__main__':

@@ -65,7 +65,8 @@ def handleMail():
             print "New Custom Alert From: " + fromAddr + " set to " + emailBody
         elif subject == "insult":
             info = str.split(emailBody)
-            print "New Insult From: " + fromAddr + " sending to " + info[0]
+            for i in info:
+                print "New Insult From: " + fromAddr + " sending to " + i
             insulter.send_Insult(sender, info)
 
         mail.logout()
