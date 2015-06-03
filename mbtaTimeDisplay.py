@@ -5,7 +5,7 @@ import mbtaJsonParse
 
 #print all northbound train times
 def popNorth():
-    print "Northbound (Oak Grove)"
+    print "Roxbury Northbound (Oak Grove)"
     for x in range (len(mbtaJsonParse.schedule['Northbound'])):
         if (x == 0):
             print "Next Train:",
@@ -19,7 +19,7 @@ def popNorth():
 
 #Print all southbound train times
 def popSouth():
-    print "Southbound (Forrest Hills)"
+    print "Roxbury Southbound (Forrest Hills)"
     for x in range (len(mbtaJsonParse.schedule['Southbound'])):
         if (x == 0):
             print "Next Train:",

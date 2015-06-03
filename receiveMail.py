@@ -4,7 +4,9 @@ __author__ = 'branden'
 import imaplib
 import email
 import time
-import sendSMS, mbtaJsonParse
+import People
+
+
 
 username = 'terraceraspberrysms@gmail.com'
 password = 'TerraceRaspberryPi'
@@ -17,29 +19,11 @@ alerts = {}
 def main():
     try:
         while True:
-            handleAlerts()
             handleMail()
     except:
         print "Error in receiveMail"
         time.sleep(15)
         main()
-
-#Handle custom alerts if they exist
-def handleAlerts():
-    remove = []
-    for person in alerts:
-        hrs, mins = alerts[person].split(':')
-        hrs = int(hrs)
-        mins = int(mins)
-        if (sendSMS.timeCheck(*[hrs, mins, 23, 59])):
-            for nextTrain in mbtaJsonParse.schedule['Northbound']:
-                if (180 < nextTrain < 250):
-                    sendSMS.sendCustomSMS(person, nextTrain)
-                    print "Custom alert sent to: " + person
-                    remove.append(person)
-                    print person + " removed from custom alert list"
-    for person in remove:
-        del alerts[person]
 
 
 def handleMail():
@@ -57,7 +41,7 @@ def handleMail():
 
     try:
         #Read emails that are unread and contain the subject "alert"
-        result, data = mail.search(None, '(HEADER Subject "times" UNSEEN)')
+        result, data = mail.search(None, '(UNSEEN)')
 
         ids = data[0]                 # data is a list.
         id_list = ids.split()         # ids is a space separated string
@@ -71,9 +55,18 @@ def handleMail():
 
         fromAddr = email_message['From']                        #get complete from address (e.g Branden Rodgers <branden@rodgersworld.com>)
         person = fromAddr.split(' ', 1)[0].replace("\"", '')    #Format from address into just first name
-        emailBody = get_body(email_message)                     #Get only the time from the email body
-        alerts[person] = emailBody                              #Enter into dict
-        print "New Custom Alert From: " + fromAddr + " set to " + emailBody
+        emailBody = get_body(email_message)                     #Get only the email body
+
+        subject = email_message['Subject'].lower()
+        if subject == "alert":
+            info = str.split(emailBody)
+            # Station, direction, time, distance
+            People.addAlert(person, info[0], info[1], info[2], int(info[3]))
+            print "New Custom Alert From: " + fromAddr + " set to " + emailBody
+        elif subject == "times":
+            info = str.split(emailBody)
+            #send times for specific station and direction
+
         mail.logout()
     except:
         mail.logout()

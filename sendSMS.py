@@ -3,21 +3,13 @@ __author__ = 'Terrace Boiz'
 import smtplib
 import datetime
 import sys
-import mbtaTimeDisplay
+import mbtaTimeDisplay, People
+
 
 username = 'terraceraspberrySMS'
 password = 'TerraceRaspberryPi'
 fromaddr = 'terraceraspberrySMS@gmail.com'
-brian  = '5086889360@vtext.com'
-branden = '6039655776@vtext.com'
-ray = '6318977618@txt.att.net'
 
-weekdays = [0,1,2,3,4]
-summerWeekdays = [0,1,2,3]
-
-rayTime = [7,40,8,20]
-brianTime = [9,30,10,0]
-brandenTime = [9,30,10,0]
 
 
 #Login to email client and send message
@@ -53,68 +45,31 @@ def run_once(f):
 def sendCustomSMS(person, nextTrain):
     global sendCustom
     sendCustom = True
-    getattr(sys.modules[__name__], "run%sAlert" % person)(nextTrain)
+    runAlert(nextTrain, person)
     sendCustom = False
-
-################# ALERTS FOR BRANDEN ###########################
-
-# Check to see if sms should be sent
-def brandenAlert(nextTrain):
-    global sendCustom
-    sendCustom = False
-    if (timeCheck(*brandenTime) and 180 < nextTrain < 250 and dayCheck(weekdays)):
-        runBrandenAlert(nextTrain)
 
 # Send sms only once
 @run_once
-def runBrandenAlert(nextTrain):
+def runAlert(nextTrain, person):
     m, s = mbtaTimeDisplay.secsToMins(nextTrain)
     time = str(m) + 'mins and ' + str(s) + 'seconds'
     msg = 'Time To Leave bro. Train comes in ' + time
-    to = [branden]
+    to = [person.number]
     send(msg, to)
-    logSMS("Branden")
+    #logSMS(person.name)
 
+################# DAILY ALERTS ###########################
 
-################# ALERTS FOR BRIAN ###########################
-
-#Check to see if sms should be sent
-def brianAlert(nextTrain):
+# Check to see if sms should be sent for Daily Alert
+def dailyAlert(nextTrain, person):
     global sendCustom
     sendCustom = False
-    if (timeCheck(*brianTime) and 180 < nextTrain < 250 and dayCheck(weekdays)):
-        runBrianAlert(nextTrain)
-
-
-# Send sms only once
-@run_once
-def runBrianAlert(nextTrain):
-    m, s = mbtaTimeDisplay.secsToMins(nextTrain)
-    time = str(m) + 'mins and ' + str(s) + 'seconds'
-    msg = 'Time To Leave bro. Train comes in ' + time
-    to = [brian]
-    send(msg, to)
-    logSMS("Brian")
-
-
-################# ALERTS FOR RAY ###########################
-
-# Check to see if sms should be sent
-def raymondAlert(nextTrain):
-    global sendCustom
-    sendCustom = False
-    if (timeCheck(*rayTime) and 180 < nextTrain < 250 and dayCheck(weekdays)):
-        runRaymondAlert(nextTrain)
-
-# Send sms only once
-@run_once
-def runRaymondAlert(nextTrain):
-    m, s = mbtaTimeDisplay.secsToMins(nextTrain)
-    time = str(m) + 'mins and ' + str(s) + 'seconds'
-    msg = 'Time To Leave bro. Train comes in ' + time
-    to = [ray]
-    send(msg, to)
-    logSMS("Ray")
+    if person.waitingOnDaily:
+        sendCustom = True
+        if (timeCheck(*People.branden.dailyTimes) and 180 < nextTrain < 250 and dayCheck(People.branden.dailyDays)):
+            runAlert(nextTrain, People.branden)
+            sendCustom = False
+            person.waitingOnDaily = False
 
 
 ################# TIME AND DAY CHECKS ###########################
