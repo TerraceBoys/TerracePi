@@ -47,3 +47,8 @@ def addAlert(name, station, direction, time, dist):
         if person.name == name:
             person.alertInfo = alert
             break
+
+def personGrab(name):
+    for person in allPeople:
+        if person.name == name:
+            return person

@@ -4,31 +4,33 @@ __author__ = 'Terrace Boiz'
 import mbtaJsonParse
 
 #print all northbound train times
-def popNorth():
-    print "Roxbury Northbound (Oak Grove)"
-    for x in range (len(mbtaJsonParse.schedule['Northbound'])):
+def popNorth(dict, station='Roxbury Crossing'):
+    result = station + " - Northbound " + "\n"
+    for x in range (len(dict['Northbound'])):
         if (x == 0):
-            print "Next Train:",
-            m, s = secsToMins(mbtaJsonParse.schedule['Northbound'][x])
-            timeHandler(m, s)
+            result += "Next Train: "
+            m, s = secsToMins(dict['Northbound'][x])
+            result += timeHandler(m, s) + "\n"
         else:
-            m, s = secsToMins(mbtaJsonParse.schedule['Northbound'][x])
-            timeHandler(m, s)
-    print "\n"
+            m, s = secsToMins(dict['Northbound'][x])
+            result += timeHandler(m, s) + "\n"
+    print result
+    return result
 
 
 #Print all southbound train times
-def popSouth():
-    print "Roxbury Southbound (Forrest Hills)"
-    for x in range (len(mbtaJsonParse.schedule['Southbound'])):
+def popSouth(dict, station='Roxbury Crossing'):
+    result = station + " - Southbound " + "\n"
+    for x in range (len(dict['Southbound'])):
         if (x == 0):
-            print "Next Train:",
-            m, s = secsToMins(mbtaJsonParse.schedule['Southbound'][x])
-            timeHandler(m, s)
+            result += "Next Train: "
+            m, s = secsToMins(dict['Southbound'][x])
+            result += timeHandler(m, s) + "\n"
         else:
-            m, s = secsToMins(mbtaJsonParse.schedule['Southbound'][x])
-            timeHandler(m, s)
-    print "\n"
+            m, s = secsToMins(dict['Southbound'][x])
+            result += timeHandler(m, s) + "\n"
+    print result
+    return result
 
 
 #Convert seconds into minutes and seconds
@@ -40,8 +42,8 @@ def secsToMins(seconds):
 #Format the arrival times
 def timeHandler(m, s):
     if (m <= 1 and s <= 10):
-        print "%02d:%02d (BRD)" % (m, s)
+        return "%02d:%02d (BRD)" % (m, s)
     elif (m <= 1):
-        print "%02d:%02d (ARR)" % (m, s)
+        return "%02d:%02d (ARR)" % (m, s)
     else:
-        print "%02d:%02d" % (m, s)
+        return "%02d:%02d" % (m, s)

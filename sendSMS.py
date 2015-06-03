@@ -4,7 +4,8 @@ import smtplib
 import datetime
 import os
 import platform
-import mbtaTimeDisplay, People
+import mbtaTimeDisplay, People, mbtaJsonParse
+from collections import defaultdict
 
 
 username = 'terraceraspberrySMS'
@@ -58,6 +59,28 @@ def runAlert(nextTrain, person):
     time = str(m) + 'mins and ' + str(s) + 'seconds'
     msg = 'Time To Leave bro. Train comes in ' + time
     send(msg, person)
+
+def sendTimes(name, station, direction=None):
+    temp = defaultdict(list)
+    mbtaJsonParse.popDict(temp, station)
+    person = People.personGrab(name)
+    msg = ""
+    if direction == 'Northbound':
+        msg += mbtaTimeDisplay.popNorth(temp, station)
+    elif direction == 'Southbound':
+        msg += mbtaTimeDisplay.popSouth(temp, station)
+    else:
+        msg += mbtaTimeDisplay.popNorth(temp, station)
+        msg += mbtaTimeDisplay.popSouth(temp, station)
+
+    print 'got to the sending phase'
+    send(msg, person)
+
+
+
+
+
+
 
 ################# DAILY ALERTS ###########################
 
