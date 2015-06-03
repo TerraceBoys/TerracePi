@@ -2,9 +2,7 @@ __author__ = 'Brian Cox'
 
 import urllib2
 import json
-import time
-import sendSMS, mbtaTimeDisplay, People
-from collections import defaultdict
+import sendSMS, People
 
 insult_url = 'http://pleaseinsult.me/api?severity=random'
 
