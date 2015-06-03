@@ -56,7 +56,7 @@ def runAlert(nextTrain, person):
     msg = 'Time To Leave bro. Train comes in ' + time
     to = [person.number]
     send(msg, to)
-    #logSMS(person.name)
+    logSMS(person.name)
 
 ################# DAILY ALERTS ###########################
 
