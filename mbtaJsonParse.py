@@ -4,7 +4,7 @@ __author__ = 'Terrace Boiz'
 import urllib
 import json
 import time
-import sendSMS, mbtaTimeDisplay, People
+import mbtaTimeDisplay, People
 from collections import defaultdict
 
 
@@ -21,12 +21,9 @@ def main():
     try:
         while True:
             print spacer
-            popDict(schedule, 'Roxbury')  #populate schedule dict
+            popDict(schedule, 'Roxbury')         #populate schedule dict
             mbtaTimeDisplay.popNorth(schedule)   #print northbound times
             mbtaTimeDisplay.popSouth(schedule)   #print southbound times
-            for guy in People.allPeople:
-                for nextTrain in schedule['Northbound']:
-                    sendSMS.dailyAlert(nextTrain, guy)
             print spacer
             time.sleep(15)               #sleep
             schedule.clear()             #clear schedule dict
