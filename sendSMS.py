@@ -77,26 +77,8 @@ def sendTimes(name, station, direction=None):
     send(msg, person)
 
 
-
-
-
-
-
-################# DAILY ALERTS ###########################
-
-# Check to see if sms should be sent for Daily Alert
-def dailyAlert(nextTrain, person):
-    global sendCustom
-    sendCustom = False
-    if person.waitingOnDaily:
-        sendCustom = True
-        if (timeCheck(*person.dailyTimes) and 180 < nextTrain < 250 and dayCheck(person.dailyDays)):
-            runAlert(nextTrain, person)
-            sendCustom = False
-            person.waitingOnDaily = False
-
-
 ################# TIME AND DAY CHECKS ###########################
+
 #Check time of the day if text message should be sent
 def timeCheck(hMin, mMin, hMax, mMax):
     now = datetime.datetime.now().time()
@@ -121,7 +103,7 @@ def logSMS(name, msg):
 
     if p[0] == 'Windows':
         path = 'C:/Users/Brian Cox/Desktop/smsLog.txt'
-    elif p[0] == 'Linx' or 'Linux2':
+    elif p[0] == 'Linx' or p[0] == 'Linux2':
         path = '/home/pi/Desktop/smsLog.txt'
     elif p[0] == 'Darwin':
         path = '/Users/branden/Desktop/smsLog.txt'
