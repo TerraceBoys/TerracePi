@@ -4,7 +4,7 @@ __author__ = 'branden'
 import imaplib
 import email
 import time
-import People, insulter, helpDesk,sendSMS
+import People, insulter, helpDesk,sendSMS, personPicker
 
 
 
@@ -71,6 +71,11 @@ def handleMail():
             print "New Time Request From: " + fromAddr
             info = str.split(emailBody)
             sendSMS.sendTimes(sender, *info)
+        #Select a random person
+        elif subject == "pick":
+            print "New Person Pick From: " + fromAddr
+            info = str.split(emailBody)
+            personPicker.pickPerson(sender, info)
         mail.logout()
     except:
         mail.logout()
