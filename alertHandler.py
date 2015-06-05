@@ -29,7 +29,7 @@ def handleCustomAlerts():
             mins = int(mins)
             #If the current time is past the alert time
             if (sendSMS.timeCheck(*[hrs, mins, 23, 59])):
-                mbtaJsonParse.popDict(tempDict, person.cutsomAlertInfo.station)
+                mbtaJsonParse.popDict(tempDict, person.customAlertInfo.station)
                 for nextTrain in tempDict[person.customAlertInfo.direction]:
                    #If the next train is at the correct distance
                    if ((person.customAlertInfo.dist * 60) < nextTrain < ((person.customAlertInfo.dist * 60) + 70)):
@@ -39,6 +39,24 @@ def handleCustomAlerts():
                         tempDict.clear()
                         break
 
+
+#Checks to see if emailed alerts are properly formatted
+def checkAlertFormat(sender, emailInfo):
+    if (emailInfo[0] in mbtaJsonParse.stationConverter) and\
+            (emailInfo[1] == "Northbound" or emailInfo[1] == "Southbound") and\
+            (":" in emailInfo[2]) and (0 < int(emailInfo[3]) < 60):
+        return True
+    else:
+        msg = "Incorrect Alert Format. Please check spelling and try again"
+        s = People.personGrab(sender)
+        sendSMS.send(msg, s)
+        return False
+
+#Make sure station and direction are uppercase
+def prepareAlert(emailInfo):
+    emailInfo[0] = emailInfo[0].title()
+    emailInfo[1] = emailInfo[1].title()
+    return emailInfo
 
 ############### DAILY ALERTS ###########################
 

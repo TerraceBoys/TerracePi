@@ -4,7 +4,7 @@ __author__ = 'branden'
 import imaplib
 import email
 import time
-import People, insulter, helpDesk,sendSMS, personPicker
+import People, insulter, helpDesk,sendSMS, personPicker, alertHandler
 
 
 
@@ -52,10 +52,11 @@ def handleMail():
 
         #Send Custom Alert
         if subject == "alert":
-            info = str.split(emailBody)
+            info = alertHandler.prepareAlert(str.split(emailBody))
             # Station, direction, time, distance
-            People.addAlert(sender, info[0], info[1], info[2], int(info[3]))
-            print "New Custom Alert From: " + fromAddr + " set to " + emailBody
+            if alertHandler.checkAlertFormat(sender, info):
+                People.addAlert(sender, info[0], info[1], info[2], int(info[3]))
+                print "New Custom Alert From: " + fromAddr + " set to " + emailBody
         #Send Insult
         elif subject == "insult":
             info = str.split(emailBody)
