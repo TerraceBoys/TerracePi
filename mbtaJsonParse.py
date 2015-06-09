@@ -4,7 +4,7 @@ __author__ = 'Terrace Boiz'
 import urllib
 import json
 import time
-import mbtaTimeDisplay, People
+import mbtaTimeDisplay
 from collections import defaultdict
 
 
@@ -47,11 +47,19 @@ def popDict(currentDict, station):
         for x in range (len(train_data['mode'])):
             #If the mode is subway
             if (train_data['mode'][x]['mode_name'] == 'Subway'):
-                #for each direction
-                for y in range (len(train_data['mode'][x]['route'][0]['direction'])):
-                    #For each train
-                    for z in range (len(train_data['mode'][x]['route'][0]['direction'][y]['trip'])):
-                        #add each train to the schedule dict -> schedule['direction'].append(pre_away)
-                        currentDict[train_data['mode'][x]['route'][0]['direction'][y]['direction_name']].append(
-                         int(train_data['mode'][x]['route'][0]['direction'][y]['trip'][z]['pre_away']))
+                #for each route
+                for r in range (len(train_data['mode'][x]['route'])):
+                    #if route name is orange line
+                    if (train_data['mode'][x]['route'][r]['route_name'] == 'Orange Line'):
+                        #for every direction
+                        for y in range (len(train_data['mode'][x]['route'][r]['direction'])):
+                            #For each train
+                            for z in range (len(train_data['mode'][x]['route'][r]['direction'][y]['trip'])):
+                                #add each train to the schedule dict -> schedule['direction'].append(pre_away)
+                                currentDict[train_data['mode'][x]['route'][r]['direction'][y]['direction_name']].append(
+                                int(train_data['mode'][x]['route'][r]['direction'][y]['trip'][z]['pre_away']))
+                break
+
+
+
 
