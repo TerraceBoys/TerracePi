@@ -17,22 +17,24 @@ alerts = {}
 #body: 14:45   (this is an example time. times are military format)
 
 def main():
+    global mail
     try:
+        mail = imaplib.IMAP4_SSL('imap.gmail.com')
+        mail.login(username, password)
+        mail.list()
+        mail.select("inbox") # connect to inbox.
         while True:
             handleMail()
     except:
         print "Error in receiveMail"
         time.sleep(15)
+        mail.logout()
         main()
 
 
 #Reads all incoming mail
 def handleMail():
-    mail = imaplib.IMAP4_SSL('imap.gmail.com')
-    mail.login(username, password)
-    mail.list()
-    mail.select("inbox") # connect to inbox.
-
+    global mail
     try:
         #Read emails that are unread
         result, data = mail.search(None, '(UNSEEN)')
@@ -49,37 +51,38 @@ def handleMail():
         sender = fromAddr.split(' ', 1)[0].replace("\"", '')    #Format from address into just first name
         emailBody = get_body(email_message)                     #Get only the email body
         subject = email_message['Subject'].lower()
-
-        #Send Custom Alert
-        if subject == "alert":
-            info = alertHandler.prepareAlert(str.split(emailBody))
-            # Station, direction, time, distance
-            if alertHandler.checkAlertFormat(sender, info):
-                People.addAlert(sender, info[0], info[1], info[2], int(info[3]))
-                print "New Custom Alert From: " + fromAddr + " set to " + emailBody
-        #Send Insult
-        elif subject == "insult":
-            info = str.split(emailBody)
-            for i in info:
-                print "New Insult From: " + fromAddr + " sending to " + i
-            insulter.send_Insult(sender, info)
-        #Send Help Information
-        elif subject == "help":
-            print "New Help Request From: " + fromAddr
-            helpDesk.send_Help(sender)
-        #Send Times of stop
-        elif subject == "times":
-            print "New Time Request From: " + fromAddr
-            info = str.split(emailBody)
-            sendSMS.sendTimes(sender, *info)
-        #Select a random person
-        elif subject == "pick":
-            print "New Person Pick From: " + fromAddr
-            info = str.split(emailBody)
-            personPicker.pickPerson(sender, info)
-        mail.logout()
     except:
-        mail.logout()
+        return
+
+    #Send Custom Alert
+    if subject == "alert":
+        info = alertHandler.prepareAlert(str.split(emailBody))
+        # Station, direction, time, distance
+        if alertHandler.checkAlertFormat(sender, info):
+            People.addAlert(sender, info[0], info[1], info[2], int(info[3]))
+            print "New Custom Alert From: " + fromAddr + " set to " + emailBody
+    #Send Insult
+    elif subject == "insult":
+        info = str.split(emailBody)
+        for i in info:
+            print "New Insult From: " + fromAddr + " sending to " + i
+        insulter.send_Insult(sender, info)
+    #Send Help Information
+    elif subject == "help":
+        print "New Help Request From: " + fromAddr
+        helpDesk.send_Help(sender)
+    #Send Times of stop
+    elif subject == "times":
+        print "New Time Request From: " + fromAddr
+        info = str.split(emailBody)
+        sendSMS.sendTimes(sender, *info)
+    #Select a random person
+    elif subject == "pick":
+        print "New Person Pick From: " + fromAddr
+        info = str.split(emailBody)
+        personPicker.pickPerson(sender, info)
+
+
 
 
 #Gets the email body

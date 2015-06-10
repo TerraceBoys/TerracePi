@@ -65,7 +65,7 @@ def handleDailyAlerts():
     sendSMS.sendCustom = False
     for person in People.allPeople:
         tempDict = defaultdict(list)
-        if person.dailyAlertInfo != None and (sendSMS.timeCheck(*person.dailyAlertInfo.time)):
+        if (person.dailyAlertInfo != None) and (sendSMS.timeCheck(*person.dailyAlertInfo.time)):
             if person.waitingOnDaily:
                 mbtaJsonParse.popDict(tempDict, person.dailyAlertInfo.station)
                 for nextTrain in tempDict[person.dailyAlertInfo.direction]:
