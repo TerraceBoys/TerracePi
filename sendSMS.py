@@ -101,7 +101,6 @@ def logSMS(name, msg):
     except:
         p = os.uname()
 
-    print p
     if p[0] == 'Windows':
         path = 'C:/Users/Brian Cox/Desktop/smsLog.txt'
     elif p[0] == 'Linux' or p[0] == 'Linux2':
