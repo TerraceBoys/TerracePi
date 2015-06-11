@@ -4,7 +4,7 @@ __author__ = 'branden'
 import imaplib
 import email
 import time
-import People, insulter, helpDesk,sendSMS, personPicker, alertHandler
+import People, insulter, helpDesk, sendSMS, personPicker, alertHandler
 
 
 

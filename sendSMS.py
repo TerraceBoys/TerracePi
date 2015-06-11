@@ -72,8 +72,6 @@ def sendTimes(name, station, direction=None):
     else:
         msg += mbtaTimeDisplay.popNorth(temp, station)
         msg += mbtaTimeDisplay.popSouth(temp, station)
-
-    print 'got to the sending phase'
     send(msg, person)
 
 

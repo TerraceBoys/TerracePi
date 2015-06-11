@@ -7,14 +7,15 @@ from collections import defaultdict
 
 
 def main():
-    while True:
-        handleCustomAlerts()
-        handleDailyAlerts()
+    try:
+        while True:
+            handleCustomAlerts()
+            handleDailyAlerts()
+            time.sleep(15)
+    except:
+        print "Error in alertHandler"
         time.sleep(15)
-    # except:
-    #     print "Error in alertHandler"
-    #     time.sleep(15)
-    #     main()
+        main()
 
 ############## CUSTOM ALERTS ##########################
 
@@ -63,8 +64,9 @@ def prepareAlert(emailInfo):
 # Check to see if sms should be sent for Daily Alert
 def handleDailyAlerts():
     sendSMS.sendCustom = False
+    tempDict = defaultdict(list)
     for person in People.allPeople:
-        tempDict = defaultdict(list)
+        tempDict.clear()
         if (person.dailyAlertInfo != None) and (sendSMS.timeCheck(*person.dailyAlertInfo.time)):
             if person.waitingOnDaily:
                 mbtaJsonParse.popDict(tempDict, person.dailyAlertInfo.station)
