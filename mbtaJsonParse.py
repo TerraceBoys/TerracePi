@@ -26,7 +26,6 @@ def main():
             mbtaTimeDisplay.popSouth(schedule)   #print southbound times
             print spacer
             time.sleep(15)               #sleep
-            schedule.clear()             #clear schedule dict
     except (IOError):
         print "Load Error for mbta, Trying Again"
         time.sleep(15)
@@ -43,6 +42,7 @@ def getStationJSON(station):
 #Add all times to defaultdict (schedule)
 def popDict(currentDict, station):
     train_data = getStationJSON(station)
+    currentDict.clear()
     if (len(train_data) > 1):
         for x in range (len(train_data['mode'])):
             #If the mode is subway

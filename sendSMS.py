@@ -50,6 +50,7 @@ def sendCustomSMS(person, nextTrain):
     global sendCustom
     sendCustom = True
     runAlert(nextTrain, person)
+    print "Custom alert sent to: " + person.name
     sendCustom = False
 
 # Send sms only once
@@ -59,6 +60,7 @@ def runAlert(nextTrain, person):
     time = str(m) + 'mins and ' + str(s) + 'seconds'
     msg = 'Time To Leave bro. Train comes in ' + time
     send(msg, person)
+
 
 def sendTimes(name, station, direction=None):
     temp = defaultdict(list)
