@@ -31,8 +31,21 @@ def grab_weather():
 def weatherPanel():
     response = urllib.urlopen(weather_url)
     weather_data = json.loads(response.read().decode())
-    weather = int(float(weather_data['current_observation']['feelslike_f']))
-    return  str(weather) + u"\u00b0"
+    temperature = int(float(weather_data['current_observation']['feelslike_f']))
+    weather = weather_data['current_observation']['weather']
+    return  str(temperature) + u"\u00b0", getTempColor(temperature)
+
+def getTempColor(temp):
+    if (temp >= 90):
+        return (255,0,0)
+    elif (temp >= 80):
+        return (255,50,0)
+    elif (temp >= 70):
+        return (255,100,0)
+    elif (temp >= 60):
+        return (255,150,0)
+    else:
+        return (0,0,255)
 
 
 

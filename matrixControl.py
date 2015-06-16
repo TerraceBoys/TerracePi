@@ -16,52 +16,53 @@ __author__ = 'Terrace Boiz'
 
 import Image
 import ImageDraw
+import ImageColor
 import time
 import ImageFont
 import mbtaTimeDisplay, mbtaJsonParse, Weather
 from collections import defaultdict
 from rgbmatrix import Adafruit_RGBmatrix
 
-# Rows and chain length are both required parameters:
+
 matrix = Adafruit_RGBmatrix(32, 2)
-# Bitmap example w/graphics prims
-image = Image.new("1", (64, 32)) # Can be larger than matrix if wanted!!
-draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
 font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",12)
 train = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",10)
-weather = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",8)
+weather = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",10)
 
 
 def main():
-    draw.text((5,-2), "Next Trains", font=font, fill=1)
+    global draw
+    image = Image.new("RGB", (64, 32)) # Can be larger than matrix iff wanted!!
+    draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
+    draw.text((4,-2), "Trains", fill="blue", font=font)
+    draw.line((4,10,34,10), fill="white")
     trainDisplay()
     weatherDisplay()
+    image2 = Image.open("rain")
+    image2.load()
     matrix.Clear()
     matrix.SetImage(image.im.id,0,0)
+    matrix.SetImage(image2.im.id,42,13)
+
 
 def trainDisplay():
     try:
-        #temp = defaultdict(list)
-        #temp['Northbound'].append(78)
-        #temp['Northbound'].append(300)
-        #train1,train2 = mbtaTimeDisplay.panelTrain(temp)
-        train1, train2 = mbtaTimeDisplay.panelTrain(mbtaJsonParse.schedule)
-        draw.text((9, 10), train1, font=train, fill=1)
-        draw.text((9,20), train2, font=train, fill=1)
+        global draw
+        train1, color1, train2, color2 = mbtaTimeDisplay.panelTrain(mbtaJsonParse.schedule)
+        draw.text((5, 10), train1, font=train, fill=color1)
+        draw.text((5,20), train2, font=train, fill=color2)
     except:
-        draw.text((9, 10), "No Trains", font=train, fill=1)
-        draw.text((9,20), "Faggot", font=train, fill=1)
+        draw.text((5, 10), "No Trains", font=train, fill=1)
+        draw.text((5,20), "Faggot", font=train, fill="red")
 
 def weatherDisplay():
     try:
-        currentWeather = Weather.weatherPanel()
-        draw.text((48, 22), currentWeather, font=weather, fill=1)
+        global draw
+        currentWeather, weathercolor = Weather.weatherPanel()
+        draw.text((44, 3), currentWeather, font=weather, fill=weathercolor)
     except:
-        draw.text((48, 22), "NO", font=weather, fill=1)
+        draw.text((44, 3), "NO", font=weather, fill="red")
 
 
-
-if __name__ == "__main__":
-    main()
 
 

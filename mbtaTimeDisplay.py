@@ -10,10 +10,10 @@ def popNorth(dict, station='Roxbury Crossing'):
         if (x == 0):
             result += "Next Train: "
             m, s = secsToMins(dict['Northbound'][x])
-            result += timeHandler(m, s) + "\n"
+            result = timeHandler(m, s) + "\n"
         else:
             m, s = secsToMins(dict['Northbound'][x])
-            result += timeHandler(m, s) + "\n"
+            result = timeHandler(m, s) + "\n"
     print result
     return result
 
@@ -35,9 +35,9 @@ def popSouth(dict, station='Roxbury Crossing'):
 def panelTrain(dict, station='Roxbury'):
     m1, s1 = secsToMins(dict['Northbound'][0])
     m2, s2 = secsToMins(dict['Northbound'][1])
-    result1 = timeHandler(m1,s1)
-    result2 = timeHandler(m2,s2)
-    return result1, result2
+    result1, color1 = timeHandler(m1,s1, True)
+    result2, color2 = timeHandler(m2,s2, True)
+    return result1, color1, result2, color2
 
 
 #Convert seconds into minutes and seconds
@@ -47,10 +47,18 @@ def secsToMins(seconds):
 
 
 #Format the arrival times
-def timeHandler(m, s):
-    if (m <= 1 and s <= 10):
-        return "%02d : %02d (BRD)" % (m, s)
+def timeHandler(m, s, panel=False):
+    if (m <= 1 and s <= 50 and m > 1 and panel):
+        return "%02d : %02d" % (m, s), "orange"
+    elif (m <= 1 and s <= 50 and m > 1):
+        return "%02d : %02d [ARR]" % (m, s)
+    elif (m <= 1 and panel):
+        return "%02d : %02d" % (m, s), "red"
     elif (m <= 1):
-        return "%02d : %02d (ARR)" % (m, s)
+        return "%02d : %02d [BRD]" % (m, s)
+    elif (panel):
+        return "%02d : %02d" % (m, s), "green"
     else:
         return "%02d : %02d" % (m, s)
+
+
