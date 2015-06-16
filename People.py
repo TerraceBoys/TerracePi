@@ -31,9 +31,9 @@ class Person:
 weekdays = [0,1,2,3,4]
 summerWeekdays = [0,1,2,3]
 
-brandenDaily = dailyAlert('Roxbury', 'Northbound', [9,30,10,0], summerWeekdays, 3)
-brianDaily = dailyAlert('Roxbury', 'Northbound', [9,30,10,0], summerWeekdays, 3)
-rayDaily = dailyAlert('Roxbury', 'Northbound', [7,40,8,20], weekdays, 3)
+brandenDaily = dailyAlert('Roxbury', 'Northbound', [9,30,10,0], summerWeekdays, 4)
+brianDaily = dailyAlert('Roxbury', 'Northbound', [9,30,10,0], summerWeekdays, 4)
+rayDaily = dailyAlert('Roxbury', 'Northbound', [7,50,8,30], weekdays, 4)
 
 ########  People for custom and daily alerts #######################
 
