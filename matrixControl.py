@@ -33,17 +33,32 @@ weather = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",8)
 
 
 def main():
-    temp = defaultdict(list)
-    temp['Southbound'].append(78)
-    nextTrain = mbtaTimeDisplay.panelTrain(temp)
-    currentWeather = Weather.weatherPanel()
-    #nextTrain = mbtaTimeDisplay.panelTrain(mbtaJsonParse.schedule)
-    matrix.Clear()
     draw.text((5,-2), "Next Trains", font=font, fill=1)
-    draw.text((9, 10), nextTrain, font=train, fill=1)
-    draw.text((9,20), "10:12", font=train, fill=1)
-    draw.text((48, 22), currentWeather, font=weather, fill=1)
+    trainDisplay()
+    weatherDisplay()
+    matrix.Clear()
     matrix.SetImage(image.im.id,0,0)
+
+def trainDisplay():
+    try:
+        #temp = defaultdict(list)
+        #temp['Northbound'].append(78)
+        #temp['Northbound'].append(300)
+        #train1,train2 = mbtaTimeDisplay.panelTrain(temp)
+        train1, train2 = mbtaTimeDisplay.panelTrain(mbtaJsonParse.schedule)
+        draw.text((9, 10), train1, font=train, fill=1)
+        draw.text((9,20), train2, font=train, fill=1)
+    except:
+        draw.text((9, 10), "No Trains", font=train, fill=1)
+        draw.text((9,20), "Faggot", font=train, fill=1)
+
+def weatherDisplay():
+    try:
+        currentWeather = Weather.weatherPanel()
+        draw.text((48, 22), currentWeather, font=weather, fill=1)
+    except:
+        draw.text((48, 22), "NO", font=weather, fill=1)
+
 
 
 if __name__ == "__main__":
