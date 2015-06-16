@@ -32,6 +32,11 @@ def popSouth(dict, station='Roxbury Crossing'):
     print result
     return result
 
+def panelTrain(dict, station='Roxbury'):
+    m, s = secsToMins(dict['Southbound'][0])
+    result = timeHandler(m,s)
+    return result
+
 
 #Convert seconds into minutes and seconds
 def secsToMins(seconds):

@@ -18,6 +18,7 @@ import Image
 import ImageDraw
 import time
 import ImageFont
+import mbtaTimeDisplay, mbtaJsonParse
 from rgbmatrix import Adafruit_RGBmatrix
 
 # Rows and chain length are both required parameters:
@@ -29,10 +30,11 @@ draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
 font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",12)
 train = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSans.ttf",10)
 weather = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",11)
+nextTrain = mbtaTimeDisplay.panelTrain(mbtaJsonParse.schedule)
 
 matrix.Clear()
 draw.text((5,-2), "Next Trains", font=font, fill=1)
-draw.text((12, 10), "10:02", font=train, fill=1)
+draw.text((12, 10), nextTrain, font=train, fill=1)
 draw.text((12,20), "10:12", font=train, fill=1)
 draw.text((46, 16), "72" + u"\u00b0", font=weather, fill=1)
 matrix.SetImage(image.im.id,0,0)
