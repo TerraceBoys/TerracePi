@@ -29,7 +29,7 @@ image = Image.new("1", (64, 32)) # Can be larger than matrix if wanted!!
 draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
 font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",12)
 train = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",10)
-weather = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",9)
+weather = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",8)
 
 
 def main():
@@ -40,8 +40,8 @@ def main():
     #nextTrain = mbtaTimeDisplay.panelTrain(mbtaJsonParse.schedule)
     matrix.Clear()
     draw.text((5,-2), "Next Trains", font=font, fill=1)
-    draw.text((10, 10), nextTrain, font=train, fill=1)
-    draw.text((10,20), "10:12", font=train, fill=1)
+    draw.text((9, 10), nextTrain, font=train, fill=1)
+    draw.text((9,20), "10:12", font=train, fill=1)
     draw.text((48, 22), currentWeather, font=weather, fill=1)
     matrix.SetImage(image.im.id,0,0)
 

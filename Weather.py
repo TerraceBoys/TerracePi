@@ -31,7 +31,9 @@ def grab_weather():
 def weatherPanel():
     response = urllib.urlopen(weather_url)
     weather_data = json.loads(response.read().decode())
-    return weather_data['current_observation']['feelslike_f'] + u"\u00b0"
+    weather = int(weather_data['current_observation']['feelslike_f'])
+    return  str(weather) + u"\u00b0"
+
 
 
 
