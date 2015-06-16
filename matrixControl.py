@@ -17,6 +17,7 @@ __author__ = 'Terrace Boiz'
 import Image
 import ImageDraw
 import time
+import ImageFont
 from rgbmatrix import Adafruit_RGBmatrix
 
 # Rows and chain length are both required parameters:
@@ -25,15 +26,18 @@ matrix = Adafruit_RGBmatrix(32, 2)
 # Bitmap example w/graphics prims
 image = Image.new("1", (64, 32)) # Can be larger than matrix if wanted!!
 draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
-# Draw some shapes into image (no immediate effect on matrix)...
-draw.rectangle((0, 0, 31, 31), fill=0, outline=1)
-draw.line((0, 0, 31, 31), fill=1)
-draw.line((0, 31, 31, 0), fill=1)
-# Then scroll image across matrix...
+font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",12)
+train = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSans.ttf",10)
+weather = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",11)
+
 matrix.Clear()
-# IMPORTANT: *MUST* pass image ID, *NOT* image object!
-matrix.SetImage(image.im.id, 16, 0)
-time.sleep(5)
+draw.text((5,-2), "Next Trains", font=font, fill=1)
+draw.text((12, 10), "10:02", font=train, fill=1)
+draw.text((12,20), "10:12", font=train, fill=1)
+draw.text((46, 16), "72" + u"\u00b0", font=weather, fill=1)
+matrix.SetImage(image.im.id,0,0)
+
+time.sleep(10)
 matrix.Clear()
 
 
