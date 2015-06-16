@@ -5,7 +5,7 @@ import urllib
 import json
 import time
 import mbtaTimeDisplay
-#import matrixControl
+import matrixControl
 from collections import defaultdict
 
 
@@ -25,7 +25,7 @@ def main():
             popDict(schedule, 'Roxbury')         #populate schedule dict
             mbtaTimeDisplay.popNorth(schedule)   #print northbound times
             mbtaTimeDisplay.popSouth(schedule)   #print southbound times
-            # matrixControl.main()
+            matrixControl.main()
             print spacer
             time.sleep(15)               #sleep
     except (IOError):

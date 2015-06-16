@@ -18,7 +18,7 @@ import Image
 import ImageDraw
 import time
 import ImageFont
-import mbtaTimeDisplay, mbtaJsonParse
+import mbtaTimeDisplay, mbtaJsonParse, Weather
 from collections import defaultdict
 from rgbmatrix import Adafruit_RGBmatrix
 
@@ -28,20 +28,21 @@ matrix = Adafruit_RGBmatrix(32, 2)
 image = Image.new("1", (64, 32)) # Can be larger than matrix if wanted!!
 draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
 font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",12)
-train = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSans.ttf",10)
-weather = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",11)
+train = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",10)
+weather = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",9)
 
 
 def main():
-    # temp = defaultdict(list)
-    # temp('Southbound'.append(300))
-    # nextTrain = mbtaTimeDisplay.panelTrain(temp)
-    nextTrain = mbtaTimeDisplay.panelTrain(mbtaJsonParse.schedule)
+    temp = defaultdict(list)
+    temp['Southbound'].append(78)
+    nextTrain = mbtaTimeDisplay.panelTrain(temp)
+    currentWeather = Weather.weatherPanel()
+    #nextTrain = mbtaTimeDisplay.panelTrain(mbtaJsonParse.schedule)
     matrix.Clear()
     draw.text((5,-2), "Next Trains", font=font, fill=1)
-    draw.text((12, 10), nextTrain, font=train, fill=1)
-    draw.text((12,20), "10:12", font=train, fill=1)
-    draw.text((46, 16), "72" + u"\u00b0", font=weather, fill=1)
+    draw.text((10, 10), nextTrain, font=train, fill=1)
+    draw.text((10,20), "10:12", font=train, fill=1)
+    draw.text((48, 22), currentWeather, font=weather, fill=1)
     matrix.SetImage(image.im.id,0,0)
 
 

@@ -47,8 +47,8 @@ def secsToMins(seconds):
 #Format the arrival times
 def timeHandler(m, s):
     if (m <= 1 and s <= 10):
-        return "%02d:%02d (BRD)" % (m, s)
+        return "%02d : %02d (BRD)" % (m, s)
     elif (m <= 1):
-        return "%02d:%02d (ARR)" % (m, s)
+        return "%02d : %02d (ARR)" % (m, s)
     else:
-        return "%02d:%02d" % (m, s)
+        return "%02d : %02d" % (m, s)

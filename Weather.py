@@ -17,7 +17,7 @@ def main():
             time.sleep(300)
     except (IOError):
         print "Error Loading Weather, Trying Again"
-        time.sleep(300)
+        time.sleep(600)
         main()
 
 
@@ -26,7 +26,13 @@ def grab_weather():
     weather_data = json.loads(response.read().decode())
     print "Boston Weather:\n"
     print weather_data['current_observation']['weather']
-    print weather_data['current_observation']['feelslike_f'] + " F"
+    print weather_data['current_observation']['feelslike_f'] + u"\u00b0"
+
+def weatherPanel():
+    response = urllib.urlopen(weather_url)
+    weather_data = json.loads(response.read().decode())
+    return weather_data['current_observation']['feelslike_f'] + u"\u00b0"
+
 
 
 if __name__ == "__main__":
