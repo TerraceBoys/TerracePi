@@ -4,7 +4,7 @@ __author__ = 'branden'
 import imaplib
 import email
 import time
-import People, insulter, helpDesk, sendSMS, personPicker, alertHandler
+import People, insulter, helpDesk, sendSMS, personPicker, alertHandler, matrixControl
 
 
 
@@ -80,6 +80,11 @@ def handleMail():
             print "New Person Pick From: " + fromAddr
             info = str.split(emailBody)
             personPicker.pickPerson(sender, info)
+	elif subject == "led":
+	    print "New LED Messsage From: " + fromAddr
+	    info = str.split(emailBody)
+	    message = ' '.join(info)
+	    matrixControl.pending_Text.append(message)
     except:
         return
 

@@ -23,14 +23,14 @@ def main():
 
 def grab_weather():
     response = urllib.urlopen(weather_url)
+    global weather_data
     weather_data = json.loads(response.read().decode())
     print "Boston Weather:\n"
     print weather_data['current_observation']['weather']
     print weather_data['current_observation']['feelslike_f'] + u"\u00b0"
 
 def weatherPanel():
-    response = urllib.urlopen(weather_url)
-    weather_data = json.loads(response.read().decode())
+    global weather_data
     temperature = int(float(weather_data['current_observation']['feelslike_f']))
     weather = weather_data['current_observation']['weather']
     return  str(temperature) + u"\u00b0", getTempColor(temperature)

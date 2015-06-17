@@ -26,42 +26,56 @@ from rgbmatrix import Adafruit_RGBmatrix
 
 matrix = Adafruit_RGBmatrix(32, 2)
 font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",12)
+message = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",22)
 train = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",10)
 weather = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",10)
-
+pending_Text = []
 
 def main():
     global draw
-    image = Image.new("RGB", (64, 32)) # Can be larger than matrix iff wanted!!
-    draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
-    draw.text((4,-2), "Trains", fill="blue", font=font)
-    draw.line((4,10,34,10), fill="white")
-    trainDisplay()
-    weatherDisplay()
-    image2 = Image.open("rain")
-    image2.load()
-    matrix.Clear()
-    matrix.SetImage(image.im.id,0,0)
-    matrix.SetImage(image2.im.id,42,13)
-
+    if (len(pending_Text) == 0):
+    	image = Image.new("RGB", (64, 32)) # Can be larger than matrix iff wanted!!
+    	draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
+    	draw.text((4,-2), "Trains", fill="blue", font=font)
+    	draw.line((4,10,34,10), fill="white")
+    	trainDisplay()
+    	weatherDisplay()
+    	image2 = Image.open("rain")
+    	image2.load()
+    	matrix.Clear()
+    	matrix.SetImage(image.im.id,0,0)
+    	matrix.SetImage(image2.im.id,42,13)
+    else:
+        image = Image.new("RGB", (len(pending_Text[0]) * 10, 32)) # Can be larger than matrix iff wanted!!
+    	draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
+    	draw.text((0,0), pending_Text[0], fill="white", font=message)
+	for n in range (64, -image.size[0], -1):
+	    matrix.Clear()
+	    matrix.SetImage(image.im.id,n,0)
+	    time.sleep(0.035)
+	pending_Text.pop(0)
+	main()
 
 def trainDisplay():
     try:
         global draw
         train1, color1, train2, color2 = mbtaTimeDisplay.panelTrain(mbtaJsonParse.schedule)
-        draw.text((5, 10), train1, font=train, fill=color1)
+        draw.text((5,10), train1, font=train, fill=color1)
         draw.text((5,20), train2, font=train, fill=color2)
     except:
-        draw.text((5, 10), "No Trains", font=train, fill=1)
-        draw.text((5,20), "Faggot", font=train, fill="red")
+        draw.text((5,10), "No", font=train, fill="red")
+        draw.text((5,20), "Trains", font=train, fill="red")
 
 def weatherDisplay():
     try:
         global draw
         currentWeather, weathercolor = Weather.weatherPanel()
         draw.text((44, 3), currentWeather, font=weather, fill=weathercolor)
-    except:
-        draw.text((44, 3), "NO", font=weather, fill="red")
+    except Exception as e:
+        # draw.text((44, 3), "NO", font=weather, fill="red")
+        time.sleep(1)
+        weatherDisplay()
+        
 
 
 

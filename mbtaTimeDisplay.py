@@ -48,7 +48,7 @@ def secsToMins(seconds):
 
 #Format the arrival times
 def timeHandler(m, s, panel=False):
-    if (m <= 1 and s <= 50 and m > 1 and panel):
+    if (m <= 3 and s <= 50 and m > 1 and panel):
         return "%02d : %02d" % (m, s), "orange"
     elif (m <= 1 and s <= 50 and m > 1):
         return "%02d : %02d [ARR]" % (m, s)
