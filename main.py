@@ -4,17 +4,23 @@ import mbtaJsonParse
 import Weather
 import receiveMail
 import alertHandler
+
 import Queue
 import threading
 
-files = [mbtaJsonParse, Weather, receiveMail, alertHandler]
+standard = [mbtaJsonParse, Weather, receiveMail, alertHandler]
+baseball = [alertHandler, receiveMail]
+
+pi_mode = standard
+
 q = Queue.Queue()
 
-def runMain(q, file):
-    q.put(file.main())
+def runMain(q, pi_mode):
+    q.put(pi_mode.main())
 
 if __name__ == "__main__":
-    for f in files:
+
+    for f in pi_mode:
         t = threading.Thread(target=runMain, args = (q, f))
         t.daemon = True
         t.start()
