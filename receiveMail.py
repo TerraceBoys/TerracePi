@@ -4,7 +4,7 @@ __author__ = 'branden'
 import imaplib
 import email
 import time
-import People, insulter, helpDesk, sendSMS, personPicker, alertHandler, matrixControl
+import pi_controller, People, insulter, helpDesk, sendSMS, personPicker, alertHandler, matrixControl, baseball
 
 
 
@@ -101,34 +101,6 @@ def pick_action(sender, fromAddr, subject, info):
         #Exit baseball mode
         elif subject == "score":
             baseball.updateScore(info)
-
-#Gets the email body
-def get_body(email_message_instance):
-    maintype = email_message_instance.get_content_maintype()
-    body = ""
-    if maintype == 'multipart':
-        for part in email_message_instance.get_payload():
-            if part.get_content_maintype() == 'text':
-                body += part.get_payload()
-                break
-    elif maintype == 'text':
-        body += email_message_instance.get_payload()
-    return trim_body(body)
-
-
-#Gets rid of email signature
-def trim_body(email_body):
-    result = ""
-    for letter in range (len(email_body)):
-        if (email_body[letter] == "\n"):
-            return result
-        else:
-            result += email_body[letter]
-
-
-if __name__ == "__main__":
-    main()
-
 
 
 #Gets the email body
