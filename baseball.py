@@ -14,16 +14,20 @@ class teamInfo:
         self.score = score  #Int: Team score
 
 score_board = []
-matrix = Adafruit_RGBmatrix(32, 2)
+team1 = teamInfo("fags", 0)
+team2 = teamInfo("gays", 0)
+score_board.append(team1)
+score_board.append(team2)
+b_matrix = Adafruit_RGBmatrix(32, 2)
+print "baseball matrix"
 introFont = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",20)
 font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",12)
-
+print "stuff init"
 
 def main():
     global game_update
     game_update = True
     gameIntro()
-    gameDisplay()
     while True:
         if game_update:
             gameDisplay()
@@ -34,8 +38,9 @@ def gameIntro():
     image = Image.new("RGB", (64, 32)) # Can be larger than matrix iff wanted!!
     draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
     draw.text((4,2), "Baseball", fill="blue", font=introFont)
-    matrix.Clear()
-    matrix.SetImage(image.im.id,0,0)
+    b_matrix.Clear()
+    b_matrix.SetImage(image.im.id,0,0)
+    time.sleep(5)
 
 
 def gameDisplay():
@@ -43,8 +48,8 @@ def gameDisplay():
     draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
     draw.text((4,-2), score_board[0].name, fill="blue", font=font)
     draw.text((30,-2), score_board[1].name, fill="blue", font=font)
-    matrix.Clear()
-    matrix.SetImage(image.im.id,0,0)
+    b_matrix.Clear()
+    b_matrix.SetImage(image.im.id,0,0)
 
 
 def init_game(info):
@@ -62,8 +67,3 @@ def updateScore(info):
             t.score += info[1]
             break
     game_update = True
-
-
-
-if __name__ == "__main__":
-    main()

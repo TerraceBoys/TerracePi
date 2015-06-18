@@ -24,7 +24,6 @@ from collections import defaultdict
 from rgbmatrix import Adafruit_RGBmatrix
 
 
-matrix = Adafruit_RGBmatrix(32, 2)
 font = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",8)
 message = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf",22)
 train = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf",11)
@@ -33,6 +32,7 @@ pending_Text = []
 
 def main():
     global draw
+    matrix = Adafruit_RGBmatrix(32, 2)
     if (len(pending_Text) == 0):
     	image = Image.new("RGB", (64, 32)) # Can be larger than matrix iff wanted!!
     	draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims

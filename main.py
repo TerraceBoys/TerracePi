@@ -4,14 +4,15 @@ import mbtaJsonParse
 import Weather
 import receiveMail
 import alertHandler
+import baseball
 
 import Queue
 import threading
 
 standard = [mbtaJsonParse, Weather, receiveMail, alertHandler]
-baseball = [alertHandler, receiveMail]
+baseball = [baseball, receiveMail, alertHandler]
 
-pi_mode = standard
+pi_mode = baseball
 
 q = Queue.Queue()
 
