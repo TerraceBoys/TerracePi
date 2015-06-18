@@ -5,14 +5,16 @@ import Weather
 import receiveMail
 import alertHandler
 import baseball
+from rgbmatrix import Adafruit_RGBmatrix
 
 import Queue
 import threading
 
 standard = [mbtaJsonParse, Weather, receiveMail, alertHandler]
 baseball = [baseball, receiveMail, alertHandler]
+matrix = Adafruit_RGBmatrix(32, 2)
 
-pi_mode = baseball
+pi_mode = standard
 
 q = Queue.Queue()
 

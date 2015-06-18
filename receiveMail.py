@@ -4,7 +4,7 @@ __author__ = 'branden'
 import imaplib
 import email
 import time
-import People, insulter, helpDesk, sendSMS, personPicker, alertHandler, matrixControl
+import pi_controller, People, insulter, helpDesk, sendSMS, personPicker, alertHandler, matrixControl, baseball
 
 
 
@@ -52,17 +52,23 @@ def handleMail():
         sender = fromAddr.split(' ', 1)[0].replace("\"", '')    #Format from address into just first name
         emailBody = get_body(email_message)                     #Get only the email body
         subject = email_message['Subject'].lower()
+        info = str.split(emailBody)
+        pick_action(sender, fromAddr, subject, info)
+    except:
+        return
 
+
+def pick_action(sender, fromAddr, subject, info):
+    if pi_controller.pi_mode == pi_controller.standard:
         #Send Custom Alert
         if subject == "alert":
-            info = alertHandler.prepareAlert(str.split(emailBody))
+            info = alertHandler.prepareAlert(info)
             # Station, direction, time, distance
             if alertHandler.checkAlertFormat(sender, info):
                 People.addAlert(sender, info[0], info[1], info[2], int(info[3]))
-                print "New Custom Alert From: " + fromAddr + " set to " + emailBody
+                print "New Custom Alert From: " + fromAddr
         #Send Insult
         elif subject == "insult":
-            info = str.split(emailBody)
             for i in info:
                 print "New Insult From: " + fromAddr + " sending to " + i
             insulter.send_Insult(sender, info)
@@ -73,20 +79,28 @@ def handleMail():
         #Send Times of stop
         elif subject == "times":
             print "New Time Request From: " + fromAddr
-            info = str.split(emailBody)
             sendSMS.sendTimes(sender, *info)
         #Select a random person
         elif subject == "pick":
             print "New Person Pick From: " + fromAddr
-            info = str.split(emailBody)
             personPicker.pickPerson(sender, info)
-	elif subject == "led":
-	    print "New LED Messsage From: " + fromAddr
-	    info = str.split(emailBody)
-	    message = ' '.join(info)
-	    matrixControl.pending_Text.append(message)
-    except:
-        return
+        #Print message to led board
+        elif subject == "led":
+            print "New LED Messsage From: " + fromAddr
+            message = ' '.join(info)
+            matrixControl.pending_Text.append(message)
+        #Start Baseball mode
+        elif subject == "baseball":
+            print "Entering baseball mode"
+            baseball.init_game(info)
+            pi_controller.pi_mode = pi_controller.baseball
+    elif pi_controller.pi_mode == pi_controller.baseball:
+        #Exit baseball mode
+        if subject == "exit":
+            pi_controller.pi_mode = pi_controller.standard
+        #Exit baseball mode
+        elif subject == "score":
+            baseball.updateScore(info)
 
 
 
