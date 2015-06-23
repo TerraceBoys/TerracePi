@@ -57,7 +57,7 @@ def timeHandler(m, s, panel=False):
     else:
         if (m < 1):
             return "%02d : %02d [BRD]" % (m, s)
-        elif: (m == 1):
+        elif (m == 1):
             return "%02d : %02d [ARR]" % (m, s)
         else:
             return "%02d : %02d" % (m, s)
