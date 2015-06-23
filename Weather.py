@@ -5,7 +5,7 @@ import json
 import time
 
 access_key = 'aceec2d6587b3b0c'
-weather_url = 'http://api.wunderground.com/api/' + access_key + '/conditions/q/MA/Boston.json'
+weather_url = 'http://api.wunderground.com/api/' + access_key + '/conditions/q/MA/Roxbury_Crossing.json'
 spacer = "-------------------------------------------"
 
 def main():
@@ -35,6 +35,7 @@ def weatherPanel():
     weather = weather_data['current_observation']['weather']
     return  str(temperature) + u"\u00b0", getTempColor(temperature)
 
+#Determine display color for temperature
 def getTempColor(temp):
     if (temp >= 90):
         return (255,0,0)
@@ -46,8 +47,6 @@ def getTempColor(temp):
         return (255,150,0)
     else:
         return (0,0,255)
-
-
 
 
 if __name__ == "__main__":

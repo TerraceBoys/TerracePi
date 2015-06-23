@@ -45,11 +45,11 @@ def main():
         draw.line((1,9,39,9), fill="#000070")
     	trainDisplay()
     	weatherDisplay()
-    	image2 = Image.open("rain")
-    	image2.load()
+    	weatherIcon = Image.open("sun2")
+    	weatherIcon.load()
     	matrix.Clear()
     	matrix.SetImage(image.im.id,0,0)
-    	matrix.SetImage(image2.im.id,44,13)
+    	matrix.SetImage(weatherIcon.im.id,44,13)
     else:
         image = Image.new("RGB", (len(pending_Text[0]) * 10, 32)) # Can be larger than matrix iff wanted!!
     	draw  = ImageDraw.Draw(image)    # Declare Draw instance before prims
@@ -76,10 +76,9 @@ def weatherDisplay():
         global draw
         currentWeather, weathercolor = Weather.weatherPanel()
         draw.text((46, 3), currentWeather, font=weather, fill=weathercolor)
-    except Exception as e:
-        # draw.text((46, 3), "NO", font=weather, fill="red")
-        time.sleep(1)
-        weatherDisplay()
+    except:
+        draw.text((46, 3), "N\A", font=weather, fill="red")
+
         
 
 
