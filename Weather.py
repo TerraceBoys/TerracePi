@@ -44,7 +44,7 @@ def getTempColor(temp):
     elif (temp >= 70):
         return (255,100,0)
     elif (temp >= 60):
-        return (255,150,0)
+        return (255,150,255)
     else:
         return (0,0,255)
 
