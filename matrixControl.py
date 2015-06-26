@@ -19,6 +19,7 @@ import ImageDraw
 import ImageColor
 import time
 import ImageFont
+import traceback
 import mbtaTimeDisplay, mbtaJsonParse, Weather
 from collections import defaultdict
 from rgbmatrix import Adafruit_RGBmatrix
@@ -68,6 +69,7 @@ def trainDisplay():
         draw.text((4,10), train1, font=train, fill=color1)
         draw.text((4,19), train2, font=train, fill=color2)
     except:
+        print traceback.print_exc()
         draw.text((4,10), "No", font=train, fill="red")
         draw.text((4,19), "Trains", font=train, fill="red")
 
@@ -76,7 +78,13 @@ def weatherDisplay():
         global draw
         currentWeather, weathercolor = Weather.weatherPanel()
         draw.text((46, 3), currentWeather, font=weather, fill=weathercolor)
+    except (NameError):
+        print "Caught Name error"
+        print traceback.print_exc()
+        draw.text((46, 3), "N\A", font=weather, fill="red")
     except:
+        print "Caught unhandled exception in matrixcontrol.weatherDisplay"
+        print traceback.print_exc()
         draw.text((46, 3), "N\A", font=weather, fill="red")
 
         

@@ -6,10 +6,10 @@ import json
 import time
 import mbtaTimeDisplay
 import matrixControl
+import traceback
 from collections import defaultdict
 
 
-spacer = "-------------------------------------------"
 access_key = 'MpYsZaqkKkG6p8WOeKHLqA'
 train_url = 'http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=' + access_key + '&stop=place-'
 schedule = defaultdict(list)
@@ -21,17 +21,19 @@ stationConverter = {'Forrest': 'forhl', 'Green': 'grnst', 'Stony': 'sbmnl', 'Jac
 def main():
     try:
         while True:
-            print spacer
             popDict(schedule, 'Roxbury')         #populate schedule dict
-            mbtaTimeDisplay.popNorth(schedule)   #print northbound times
-            mbtaTimeDisplay.popSouth(schedule)   #print southbound times
+            #mbtaTimeDisplay.popNorth(schedule)   #print northbound times
+            #mbtaTimeDisplay.popSouth(schedule)   #print southbound times
             matrixControl.main()
-            print spacer
             time.sleep(15)               #sleep
     except (IOError):
-        print "Load Error for mbta, Trying Again"
+        print "Caught IOError"
+        print traceback.print_exc()
         time.sleep(15)
         main()
+    except:
+        print "Caught Unhandled exception in mbtajsonparse main"
+        print traceback.print_exc()
 
 
 def getStationJSON(station):

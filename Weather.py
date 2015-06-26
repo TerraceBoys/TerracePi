@@ -3,6 +3,7 @@ __author__ = 'Terrace Boiz'
 import urllib
 import json
 import time
+import traceback
 
 access_key = 'aceec2d6587b3b0c'
 weather_url = 'http://api.wunderground.com/api/' + access_key + '/conditions/q/MA/Roxbury_Crossing.json'
@@ -11,23 +12,26 @@ spacer = "-------------------------------------------"
 def main():
     try:
         while True:
-            print spacer
             grab_weather()
-            print spacer
             time.sleep(300)
     except (IOError):
-        print "Error Loading Weather, Trying Again"
+        print "Caught IOError while Loading Weather - Trying Again"
+        print traceback.print_exc()
         time.sleep(600)
         main()
+    except:
+        print "Caught unhandled exception in Weather.main"
+        print traceback.print_exc()
+        
 
 
 def grab_weather():
     response = urllib.urlopen(weather_url)
     global weather_data
     weather_data = json.loads(response.read().decode())
-    print "Boston Weather:\n"
-    print weather_data['current_observation']['weather']
-    print weather_data['current_observation']['feelslike_f'] + u"\u00b0"
+    #print "Boston Weather:"
+    #print weather_data['current_observation']['weather']
+    #print weather_data['current_observation']['feelslike_f'] + " F"
 
 def weatherPanel():
     global weather_data

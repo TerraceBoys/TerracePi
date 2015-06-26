@@ -10,11 +10,10 @@ def popNorth(dict, station='Roxbury Crossing'):
         if (x == 0):
             result += "Next Train: "
             m, s = secsToMins(dict['Northbound'][x])
-            result = timeHandler(m, s) + "\n"
+            result += timeHandler(m, s) + "\n"
         else:
             m, s = secsToMins(dict['Northbound'][x])
-            result = timeHandler(m, s) + "\n"
-    print result
+            result += timeHandler(m, s) + "\n"
     return result
 
 
@@ -29,7 +28,6 @@ def popSouth(dict, station='Roxbury Crossing'):
         else:
             m, s = secsToMins(dict['Southbound'][x])
             result += timeHandler(m, s) + "\n"
-    print result
     return result
 
 def panelTrain(dict, station='Roxbury'):

@@ -1,7 +1,7 @@
 __author__ = 'branden'
 
 
-import time
+import time, traceback
 import sendSMS, mbtaJsonParse, People
 from collections import defaultdict
 
@@ -14,8 +14,9 @@ def main():
             time.sleep(15)
     except:
         print "Error in alertHandler"
+        print traceback.print_exc()
         time.sleep(15)
-        main()
+        # main()
 
 ########################## CUSTOM ALERTS ##################################
 

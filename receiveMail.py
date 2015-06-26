@@ -4,6 +4,7 @@ __author__ = 'branden'
 import imaplib
 import email
 import time
+import traceback
 import People, insulter, helpDesk, sendSMS, personPicker, alertHandler, matrixControl
 
 
@@ -26,6 +27,7 @@ def main():
             handleMail()
     except:
         print "Error in receiveMail"
+        print traceback.print_exc()
         time.sleep(15)
         mail.logout()
         main()
@@ -85,8 +87,10 @@ def handleMail():
 	    info = str.split(emailBody)
 	    message = ' '.join(info)
 	    matrixControl.pending_Text.append(message)
-    except:
+    except (IndexError):
         return
+    except:
+        print traceback.print_exc()
 
 
 

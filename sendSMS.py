@@ -4,6 +4,7 @@ import smtplib
 import datetime
 import os
 import platform
+import traceback
 import mbtaTimeDisplay, People, mbtaJsonParse
 from collections import defaultdict
 
@@ -23,6 +24,7 @@ def send(msg, person):
         server.login(username, password)
     except:
         print("Error logging-in to email client. Trying again")
+        print traceback.print_exc()
         send(msg, person)
     r = msg.replace("\n", " ")
     print 'Sending message: ' + '"' + r + '"' + ' to ' + person.name
