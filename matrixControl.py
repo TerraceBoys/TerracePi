@@ -57,11 +57,11 @@ def main():
         image = Image.new("RGB", (len(pending_Text[0]) * 10, 32))  # Can be larger than matrix iff wanted!!
         draw = ImageDraw.Draw(image)  # Declare Draw instance before prims
         draw.text((0, 0), pending_Text[0], fill="white", font=message)
+        pending_Text.pop(0)
     for n in range(64, -image.size[0], -1):
         matrix.Clear()
         matrix.SetImage(image.im.id, n, 0)
         time.sleep(0.035)
-    pending_Text.pop(0)
     main()
 
 
