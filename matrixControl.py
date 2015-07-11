@@ -46,7 +46,7 @@ def main():
         draw.line((1,9,39,9), fill="#000070")
     	trainDisplay()
     	weatherDisplay()
-    	weatherIcon = Image.open("sun2")
+    	weatherIcon = Image.open("rain")
     	weatherIcon.load()
     	matrix.Clear()
     	matrix.SetImage(image.im.id,0,0)
