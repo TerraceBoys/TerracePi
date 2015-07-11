@@ -65,7 +65,7 @@ def handle_mail():
         if subject == "alert":
             info = alertHandler.prepare_alert(str.split(email_body))
             # Station, direction, time, distance
-            if alertHandler.checkAlertFormat(sender, info):
+            if alertHandler.check_alert_format(sender, info):
                 People.add_alert(sender, info[0], info[1], info[2], int(info[3]))
                 print "New Custom Alert From: " + from_addr + " set to " + email_body
         # Send Insult
@@ -93,7 +93,7 @@ def handle_mail():
             info = str.split(email_body)
             message = ' '.join(info)
             matrixControl.pending_Text.append(message)
-    except (IndexError):
+    except IndexError:
         return
     except:
         print traceback.print_exc()

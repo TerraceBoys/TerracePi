@@ -31,7 +31,7 @@ def send(msg, person):
     r = msg.replace("\n", " ")
     print 'Sending message: ' + '"' + r + '"' + ' to ' + person.name
     server.sendmail(fromaddr, person.number, msg)
-    logSMS(person.name, msg)
+    log_sms(person.name, msg)
     server.quit()
 
 
@@ -104,7 +104,7 @@ def day_check(days):
 
 
 # ##################### SMS LOG #################################
-def logSMS(name, msg):
+def log_sms(name, msg):
     try:
         p = platform.uname()
     except:

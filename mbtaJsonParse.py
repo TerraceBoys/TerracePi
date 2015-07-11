@@ -26,7 +26,7 @@ def main():
             # mbtaTimeDisplay.popSouth(schedule)   #print southbound times
             matrixControl.main()
             time.sleep(15)  # sleep
-    except (IOError):
+    except IOError:
         print "Caught IOError"
         print traceback.print_exc()
         time.sleep(15)
@@ -36,7 +36,7 @@ def main():
         print traceback.print_exc()
 
 
-def getStationJSON(station):
+def get_station_json(station):
     response = urllib.urlopen(train_url + stationConverter[station] + '&format=json')
     train_data = json.loads(response.read().decode())
     return train_data
@@ -45,7 +45,7 @@ def getStationJSON(station):
 # Parse all Roxbury Crossing train arrival times
 # Add all times to defaultdict (schedule)
 def pop_dict(current_dict, station):
-    train_data = getStationJSON(station)
+    train_data = get_station_json(station)
     current_dict.clear()
     if len(train_data) > 1:
         for x in range(len(train_data['mode'])):
