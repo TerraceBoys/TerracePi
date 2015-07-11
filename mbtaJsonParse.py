@@ -1,13 +1,12 @@
 __author__ = 'Terrace Boiz'
 
-
 import urllib
 import json
 import time
-import mbtaTimeDisplay
-import matrixControl
 import traceback
 from collections import defaultdict
+
+import matrixControl
 
 
 access_key = 'MpYsZaqkKkG6p8WOeKHLqA'
@@ -18,14 +17,15 @@ stationConverter = {'Forrest': 'forhl', 'Green': 'grnst', 'Stony': 'sbmnl', 'Jac
                     'Downtown': 'dwnxg', 'State': 'state', 'Haymarket': 'haecl', 'North': 'north', 'Community': 'ccmnl',
                     'Sullivan': 'sull', 'Wellington': 'welln', 'Malden': 'mlmnl', 'Oak': 'ogmnl'}
 
+
 def main():
     try:
         while True:
-            popDict(schedule, 'Roxbury')         #populate schedule dict
-            #mbtaTimeDisplay.popNorth(schedule)   #print northbound times
-            #mbtaTimeDisplay.popSouth(schedule)   #print southbound times
+            pop_dict(schedule, 'Roxbury')  # populate schedule dict
+            # mbtaTimeDisplay.popNorth(schedule)   #print northbound times
+            # mbtaTimeDisplay.popSouth(schedule)   #print southbound times
             matrixControl.main()
-            time.sleep(15)               #sleep
+            time.sleep(15)  # sleep
     except (IOError):
         print "Caught IOError"
         print traceback.print_exc()
@@ -42,26 +42,27 @@ def getStationJSON(station):
     return train_data
 
 
-#Parse all Roxbury Crossing train arrival times
-#Add all times to defaultdict (schedule)
-def popDict(currentDict, station):
+# Parse all Roxbury Crossing train arrival times
+# Add all times to defaultdict (schedule)
+def pop_dict(current_dict, station):
     train_data = getStationJSON(station)
-    currentDict.clear()
-    if (len(train_data) > 1):
-        for x in range (len(train_data['mode'])):
-            #If the mode is subway
-            if (train_data['mode'][x]['mode_name'] == 'Subway'):
-                #for each route
-                for r in range (len(train_data['mode'][x]['route'])):
-                    #if route name is orange line
-                    if (train_data['mode'][x]['route'][r]['route_name'] == 'Orange Line'):
-                        #for every direction
-                        for y in range (len(train_data['mode'][x]['route'][r]['direction'])):
-                            #For each train
-                            for z in range (len(train_data['mode'][x]['route'][r]['direction'][y]['trip'])):
-                                #add each train to the schedule dict -> schedule['direction'].append(pre_away)
-                                currentDict[train_data['mode'][x]['route'][r]['direction'][y]['direction_name']].append(
-                                int(train_data['mode'][x]['route'][r]['direction'][y]['trip'][z]['pre_away']))
+    current_dict.clear()
+    if len(train_data) > 1:
+        for x in range(len(train_data['mode'])):
+            # If the mode is subway
+            if train_data['mode'][x]['mode_name'] == 'Subway':
+                # for each route
+                for r in range(len(train_data['mode'][x]['route'])):
+                    # if route name is orange line
+                    if train_data['mode'][x]['route'][r]['route_name'] == 'Orange Line':
+                        # for every direction
+                        for y in range(len(train_data['mode'][x]['route'][r]['direction'])):
+                            # For each train
+                            for z in range(len(train_data['mode'][x]['route'][r]['direction'][y]['trip'])):
+                                # add each train to the schedule dict -> schedule['direction'].append(pre_away)
+                                current_dict[
+                                    train_data['mode'][x]['route'][r]['direction'][y]['direction_name']].append(
+                                    int(train_data['mode'][x]['route'][r]['direction'][y]['trip'][z]['pre_away']))
                 break
 
 

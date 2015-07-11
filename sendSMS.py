@@ -5,8 +5,11 @@ import datetime
 import os
 import platform
 import traceback
-import mbtaTimeDisplay, People, mbtaJsonParse
 from collections import defaultdict
+
+import mbtaTimeDisplay
+import People
+import mbtaJsonParse
 
 
 username = 'terraceraspberrySMS'
@@ -14,8 +17,7 @@ password = 'TerraceRaspberryPi'
 fromaddr = 'terraceraspberrySMS@gmail.com'
 
 
-
-#Login to email client and send message
+# Login to email client and send message
 def send(msg, person):
     server = smtplib.SMTP()
     try:
@@ -36,67 +38,72 @@ def send(msg, person):
 # So methods can run once a day
 def run_once(f):
     global sendCustom
+
     def wrapper(*args):
         if sendCustom:
             return f(*args)
         elif not wrapper.has_run:
             wrapper.has_run = True
             return f(*args)
+
     sendCustom = False
     wrapper.has_run = False
     return wrapper
 
 
-#Sends a custom alert one time to specified person
-def sendCustomSMS(person, nextTrain):
+# Sends a custom alert one time to specified person
+def send_custom_sms(person, next_train):
     global sendCustom
     sendCustom = True
-    runAlert(nextTrain, person)
+    run_alert(next_train, person)
     print "Custom alert sent to: " + person.name
     sendCustom = False
 
+
 # Send sms only once
 @run_once
-def runAlert(nextTrain, person):
-    m, s = mbtaTimeDisplay.secsToMins(nextTrain)
+def run_alert(next_train, person):
+    m, s = mbtaTimeDisplay.secs_to_mins(next_train)
     time = str(m) + 'mins and ' + str(s) + 'seconds'
     msg = 'Time To Leave bro. Train comes in ' + time
     send(msg, person)
 
 
-def sendTimes(name, station, direction=None):
+def send_times(name, station, direction=None):
     temp = defaultdict(list)
-    mbtaJsonParse.popDict(temp, station)
-    person = People.personGrab(name)
+    mbtaJsonParse.pop_dict(temp, station)
+    person = People.person_grab(name)
     msg = ""
     if direction == 'Northbound':
-        msg += mbtaTimeDisplay.popNorth(temp, station)
+        msg += mbtaTimeDisplay.pop_north(temp, station)
     elif direction == 'Southbound':
-        msg += mbtaTimeDisplay.popSouth(temp, station)
+        msg += mbtaTimeDisplay.pop_south(temp, station)
     else:
-        msg += mbtaTimeDisplay.popNorth(temp, station)
-        msg += mbtaTimeDisplay.popSouth(temp, station)
+        msg += mbtaTimeDisplay.pop_north(temp, station)
+        msg += mbtaTimeDisplay.pop_south(temp, station)
     send(msg, person)
 
 
-################# TIME AND DAY CHECKS ###########################
+# ################ TIME AND DAY CHECKS ###########################
 
-#Check time of the day if text message should be sent
-def timeCheck(hMin, mMin, hMax, mMax):
+# Check time of the day if text message should be sent
+def time_check(h_min, m_min, h_max, m_max):
     now = datetime.datetime.now().time()
-    lower = datetime.time(hour=hMin, minute=mMin)
-    upper = datetime.time(hour=hMax, minute=mMax)
+    lower = datetime.time(hour=h_min, minute=m_min)
+    upper = datetime.time(hour=h_max, minute=m_max)
     return lower <= now <= upper
 
+
 # Check day of the week if text message should be sent
-def dayCheck(days):
+def day_check(days):
     today = datetime.date.today().weekday()
     for d in days:
-        if (d == today):
+        if d == today:
             return True
     return False
 
-###################### SMS LOG #################################
+
+# ##################### SMS LOG #################################
 def logSMS(name, msg):
     try:
         p = platform.uname()

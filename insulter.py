@@ -2,9 +2,13 @@ __author__ = 'Brian Cox'
 
 import urllib2
 import json
-import sendSMS, People
+
+import sendSMS
+import People
+
 
 insult_url = 'http://pleaseinsult.me/api?severity=random'
+
 
 def main():
     print get_insult()
@@ -18,7 +22,8 @@ def get_insult():
     insult = insult_data['insult']
     return insult
 
-def send_Insult(sender, recipient):
+
+def send_insult(sender, recipient):
     insult = get_insult() + "\nLove,\n" + sender
     for r in recipient:
         for p in People.insultPeople:
