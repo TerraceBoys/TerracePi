@@ -29,12 +29,18 @@ def pop_south(dict, station='Roxbury Crossing'):
     return result
 
 
-def panel_train(dict):
-    m1, s1 = secs_to_mins(dict['Northbound'][0])
-    m2, s2 = secs_to_mins(dict['Northbound'][1])
-    result1, color1 = time_handler(m1, s1, True)
-    result2, color2 = time_handler(m2, s2, True)
-    return result1, color1, result2, color2
+def panel_train(dict, station='Roxbury'):
+    if 'Northbound' in dict:
+        if len(dict['Northbound']) >= 2:
+            m1, s1 = secs_to_mins(dict['Northbound'][0])
+            m2, s2 = secs_to_mins(dict['Northbound'][1])
+            result1, color1 = time_handler(m1, s1, True)
+            result2, color2 = time_handler(m2, s2, True)
+            return result1, color1, result2, color2
+        else:
+            m1, s1 = secs_to_mins(dict['Northbound'][0])
+            result1, color1 = time_handler(m1, s1, True)
+            return result1, color1, "", color1
 
 
 # Convert seconds into minutes and seconds
@@ -59,5 +65,3 @@ def time_handler(m, s, panel=False):
             return "%02d : %02d [ARR]" % (m, s)
         else:
             return "%02d : %02d" % (m, s)
-
-
