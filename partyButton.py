@@ -1,3 +1,5 @@
+__author__ = 'Terrace Boiz'
+
 import usb.core
 import usb.util
 import sys

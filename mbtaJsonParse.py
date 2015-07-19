@@ -44,7 +44,7 @@ def getStationJSON(station):
 
 #Parse all Roxbury Crossing train arrival times
 #Add all times to defaultdict (schedule)
-def popDict(currentDict, station):
+def popDict(currentDict, station, line='Orange Line'):
     train_data = getStationJSON(station)
     currentDict.clear()
     if (len(train_data) > 1):
@@ -54,7 +54,7 @@ def popDict(currentDict, station):
                 #for each route
                 for r in range (len(train_data['mode'][x]['route'])):
                     #if route name is orange line
-                    if (train_data['mode'][x]['route'][r]['route_name'] == 'Orange Line'):
+                    if (train_data['mode'][x]['route'][r]['route_name'] == line):
                         #for every direction
                         for y in range (len(train_data['mode'][x]['route'][r]['direction'])):
                             #For each train

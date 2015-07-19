@@ -1,4 +1,4 @@
-__author__ = 'branden'
+__author__ = 'Terrace Boiz'
 
 
 import sendSMS, People

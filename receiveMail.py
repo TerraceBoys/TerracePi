@@ -82,6 +82,11 @@ def handleMail():
             print "New Person Pick From: " + fromAddr
             info = str.split(emailBody)
             personPicker.pickPerson(sender, info)
+        #Decide mbta route
+        elif subject == "decision time":
+            print "New Decision Time From: " + fromAddr
+            info = str.split(emailBody)
+            decisionTime.decide_route(sender)
 	elif subject == "led":
 	    print "New LED Messsage From: " + fromAddr
 	    info = str.split(emailBody)
