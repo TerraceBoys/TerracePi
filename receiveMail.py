@@ -31,6 +31,7 @@ def main():
         mail.list()
         while True:
             handle_mail()
+            time.sleep(1)
     except:
         print "Error in receiveMail"
         print traceback.print_exc()
@@ -96,6 +97,7 @@ def handle_mail():
     except IndexError:
         return
     except:
+        time.sleep(1)
         print traceback.print_exc()
 
 
