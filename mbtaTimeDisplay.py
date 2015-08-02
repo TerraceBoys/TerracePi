@@ -41,7 +41,7 @@ def panelTrain(dict, station='Roxbury'):
         else:
             m1,s1 = secsToMins(dict['Northbound'][0])
             result1, color1 = timeHandler(m1,s1, True)
-            return result1, color1, "", color1
+            return result1, color1, " ", color1
             
 
 
