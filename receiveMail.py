@@ -98,7 +98,8 @@ def handle_mail():
         return
     except:
         time.sleep(1)
-        print traceback.print_exc()
+        mail.logout()
+        return main()
 
 
 # Gets the email body
