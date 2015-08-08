@@ -71,10 +71,11 @@ def train_display():
         train1, color1, train2, color2 = mbtaTimeDisplay.panel_train(mbtaJsonParse.schedule)
         draw.text((4, 10), train1, font=train, fill=color1)
         draw.text((4, 19), train2, font=train, fill=color2)
-    except:
-        print traceback.print_exc()
+    except TypeError:
         draw.text((4, 10), "No", font=train, fill="red")
         draw.text((4, 19), "Trains", font=train, fill="red")
+    except:
+        print traceback.print_exc()
 
 
 def weather_display():
