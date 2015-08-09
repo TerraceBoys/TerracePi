@@ -32,6 +32,9 @@ def main():
         while True:
             handle_mail()
             time.sleep(1)
+        time.sleep(15)
+        mail.logout()
+        main()
     except:
         print "Error in receiveMail"
         print traceback.print_exc()
@@ -97,9 +100,7 @@ def handle_mail():
     except IndexError:
         return
     except:
-        time.sleep(1)
-        mail.logout()
-        return main()
+        break
 
 
 # Gets the email body
