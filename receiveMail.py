@@ -24,14 +24,20 @@ alerts = {}
 
 
 def main():
-    global mail
+    global mail, ssl 
+    ssl = False
     try:
         mail = imaplib.IMAP4_SSL('imap.gmail.com')
         mail.login(username, password)
         mail.list()
         while True:
             handle_mail()
+            if ssl:
+                break
             time.sleep(1)
+        time.sleep(15)
+        mail.logout()
+        main()
     except:
         print "Error in receiveMail"
         print traceback.print_exc()
@@ -42,7 +48,7 @@ def main():
 
 # Reads all incoming mail
 def handle_mail():
-    global mail
+    global mail, ssl
     try:
         mail.select("inbox")  # connect to updated inbox.
 
@@ -97,8 +103,9 @@ def handle_mail():
     except IndexError:
         return
     except:
-        time.sleep(1)
-        print traceback.print_exc()
+        ssl = True
+        return
+        
 
 
 # Gets the email body
