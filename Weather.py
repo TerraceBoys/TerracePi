@@ -3,7 +3,6 @@ __author__ = 'Terrace Boiz'
 import urllib
 import json
 import traceback
-import time
 
 access_key = 'aceec2d6587b3b0c'
 weather_url = 'http://api.wunderground.com/api/' + access_key + '/conditions/q/MA/Roxbury_Crossing.json'

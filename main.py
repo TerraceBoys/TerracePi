@@ -11,8 +11,8 @@ import alertHandler
 
 
 files = [
-    (mbtaJsonParse, 15),
     (weather, 30),
+    (mbtaJsonParse, 15),
     (receiveMail, 15),
     (alertHandler, 1)
 ]

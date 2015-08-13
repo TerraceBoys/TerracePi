@@ -30,7 +30,7 @@ matrix = Adafruit_RGBmatrix(32, 2)
 font = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 8)
 message = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf", 22)
 train = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 11)
-weather = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 10)
+weather_font = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 10)
 pending_Text = []
 
 
@@ -86,11 +86,11 @@ def weather_display():
     except NameError:
         print "Caught Name error"
         print traceback.print_exc()
-        draw.text((46, 3), "N\A", font=weather, fill="red")
+        draw.text((46, 3), "N\A", font=weather_font, fill="red")
     except:
         print "Caught unhandled exception in matrixcontrol.weatherDisplay"
         print traceback.print_exc()
-        draw.text((46, 3), "N\A", font=weather, fill="red")
+        draw.text((46, 3), "N\A", font=weather_font, fill="red")
 
         
 
