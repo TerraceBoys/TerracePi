@@ -2,24 +2,24 @@ __author__ = 'Terrace Boiz'
 
 import urllib
 import json
-import time
 import traceback
+import time
 
 access_key = 'aceec2d6587b3b0c'
 weather_url = 'http://api.wunderground.com/api/' + access_key + '/conditions/q/MA/Roxbury_Crossing.json'
 spacer = "-------------------------------------------"
 
 
+def setup():
+    return
+
+
 def main():
     try:
-        while True:
-            grab_weather()
-            time.sleep(300)
+        grab_weather()
     except IOError:
         print "Caught IOError while Loading Weather - Trying Again"
         print traceback.print_exc()
-        time.sleep(600)
-        main()
     except:
         print "Caught unhandled exception in Weather.main"
         print traceback.print_exc()
@@ -52,7 +52,3 @@ def get_temp_color(temp):
         return 255, 150, 250
     else:
         return 0, 0, 255
-
-
-if __name__ == "__main__":
-    main()

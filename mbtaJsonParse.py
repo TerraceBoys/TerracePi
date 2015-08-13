@@ -2,7 +2,6 @@ __author__ = 'Terrace Boiz'
 
 import urllib
 import json
-import time
 import traceback
 from collections import defaultdict
 
@@ -18,17 +17,19 @@ stationConverter = {'Forrest': 'forhl', 'Green': 'grnst', 'Stony': 'sbmnl', 'Jac
                     'Sullivan': 'sull', 'Wellington': 'welln', 'Malden': 'mlmnl', 'Oak': 'ogmnl'}
 
 
+def setup():
+    return
+
+
 def main():
     try:
         pop_dict(schedule, 'Roxbury')  # populate schedule dict
         # mbtaTimeDisplay.popNorth(schedule)   #print northbound times
         # mbtaTimeDisplay.popSouth(schedule)   #print southbound times
         matrixControl.main()
-        time.sleep(15)  # sleep
     except IOError:
         print "Caught IOError"
         print traceback.print_exc()
-        time.sleep(15)
         main()
     except:
         print "Caught Unhandled exception in mbtajsonparse main"

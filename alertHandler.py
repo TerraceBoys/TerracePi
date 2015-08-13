@@ -1,6 +1,5 @@
 __author__ = 'branden'
 
-import time
 import traceback
 from collections import defaultdict
 
@@ -11,14 +10,11 @@ import People
 
 def main():
     try:
-        while True:
-            handle_custom_alerts()
-            handle_daily_alerts()
-            time.sleep(15)
+        handle_custom_alerts()
+        handle_daily_alerts()
     except:
         print "Error in alertHandler"
         print traceback.print_exc()
-        time.sleep(15)
         # main()
 
 

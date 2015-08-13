@@ -22,7 +22,7 @@ import ImageDraw
 import ImageFont
 import mbtaTimeDisplay
 import mbtaJsonParse
-import Weather
+import weather
 from rgbmatrix import Adafruit_RGBmatrix
 
 
@@ -81,7 +81,7 @@ def train_display():
 def weather_display():
     try:
         global draw
-        current_weather, weather_color = Weather.weather_panel()
+        current_weather, weather_color = weather.weather_panel()
         draw.text((46, 3), current_weather, font=weather, fill=weather_color)
     except NameError:
         print "Caught Name error"

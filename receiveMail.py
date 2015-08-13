@@ -23,21 +23,24 @@ alerts = {}
 # body: 14:45   (this is an example time. times are military format)
 
 
+def setup():
+    global mail, ssl
+    ssl = False
+    mail = imaplib.IMAP4_SSL('imap.gmail.com')
+    mail.login(username, password)
+    mail.list()
+
+
 def main():
-    global mail, ssl 
+    global mail, ssl
     ssl = False
     try:
-        mail = imaplib.IMAP4_SSL('imap.gmail.com')
-        mail.login(username, password)
-        mail.list()
-        while True:
+        if ssl:
+            time.sleep(10)
+            mail.logout()
+            setup()
+        else:
             handle_mail()
-            if ssl:
-                break
-            time.sleep(1)
-        time.sleep(15)
-        mail.logout()
-        main()
     except:
         print "Error in receiveMail"
         print traceback.print_exc()
@@ -105,7 +108,6 @@ def handle_mail():
     except:
         ssl = True
         return
-        
 
 
 # Gets the email body

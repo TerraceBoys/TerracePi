@@ -2,23 +2,24 @@ __author__ = 'Terrace Boiz'
 
 import threading
 import time
+import server
 
 import mbtaJsonParse
-import Weather
+import weather
 import receiveMail
 import alertHandler
-import server
 
 
 files = [
-    (mbtaJsonParse, 0),
-    (Weather, 0),
-    (receiveMail, 0),
-    (alertHandler, 0),
-    (server, 0)]
+    (mbtaJsonParse, 15),
+    (weather, 30),
+    (receiveMail, 15),
+    (alertHandler, 1)
+]
 
 
 def run_main(thread_file, delay, event):
+    thread_file.setup()
     while event.is_set():
         thread_file.main()
         time.sleep(delay)
@@ -32,6 +33,7 @@ if __name__ == "__main__":
         t = threading.Thread(target=run_main, args=(f[0], f[1], run_event))
         thread_list.append(t)
         t.start()
+    server.main()
 
     try:
         while 1:
