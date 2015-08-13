@@ -8,6 +8,10 @@ import mbtaJsonParse
 import People
 
 
+def setup():
+    return
+
+
 def main():
     try:
         handle_custom_alerts()
@@ -15,7 +19,6 @@ def main():
     except:
         print "Error in alertHandler"
         print traceback.print_exc()
-        # main()
 
 
 # ######################### CUSTOM ALERTS ##################################
