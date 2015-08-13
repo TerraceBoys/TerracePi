@@ -1,6 +1,5 @@
 __author__ = 'Terrace Boiz'
 
-import Queue
 import threading
 
 import mbtaJsonParse
@@ -11,20 +10,13 @@ import server
 
 
 files = [mbtaJsonParse, Weather, receiveMail, alertHandler, server]
-q = Queue.Queue()
 
 
-def run_main(q, file):
-    q.put(file.main())
+def run_main(thread_file):
+    thread_file.main()
 
 if __name__ == "__main__":
     for f in files:
-        t = threading.Thread(target=run_main, args=(q, f))
+        t = threading.Thread(target=run_main, args=f)
         t.daemon = True
         t.start()
-
-    s = q.get()
-    print s
-
-
-
