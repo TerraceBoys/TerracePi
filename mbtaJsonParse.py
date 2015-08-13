@@ -20,12 +20,11 @@ stationConverter = {'Forrest': 'forhl', 'Green': 'grnst', 'Stony': 'sbmnl', 'Jac
 
 def main():
     try:
-        while True:
-            pop_dict(schedule, 'Roxbury')  # populate schedule dict
-            # mbtaTimeDisplay.popNorth(schedule)   #print northbound times
-            # mbtaTimeDisplay.popSouth(schedule)   #print southbound times
-            matrixControl.main()
-            time.sleep(15)  # sleep
+        pop_dict(schedule, 'Roxbury')  # populate schedule dict
+        # mbtaTimeDisplay.popNorth(schedule)   #print northbound times
+        # mbtaTimeDisplay.popSouth(schedule)   #print southbound times
+        matrixControl.main()
+        time.sleep(15)  # sleep
     except IOError:
         print "Caught IOError"
         print traceback.print_exc()
