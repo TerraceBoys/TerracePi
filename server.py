@@ -47,5 +47,5 @@ def headers_edited():
     return "Headers Updated"
     
     
-if __name__ == "__main__":
+def main():
     app.run(host='0.0.0.0', port=8080)
