@@ -10,7 +10,7 @@ import insulter
 import helpDesk
 import sendSMS
 import personPicker
-import alertHandler
+from scripts import alertHandler
 import matrixControl
 
 

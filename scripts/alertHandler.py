@@ -5,7 +5,7 @@ import traceback
 from collections import defaultdict
 
 import sendSMS
-import mbtaJsonParse
+from scripts import mbtaJsonParse
 import People
 
 

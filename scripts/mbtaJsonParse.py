@@ -6,8 +6,6 @@ import time
 import traceback
 from collections import defaultdict
 
-import matrixControl
-
 
 access_key = 'MpYsZaqkKkG6p8WOeKHLqA'
 train_url = 'http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=' + access_key + '&stop=place-'
@@ -24,7 +22,6 @@ def main():
             pop_dict(schedule, 'Roxbury')  # populate schedule dict
             # mbtaTimeDisplay.popNorth(schedule)   #print northbound times
             # mbtaTimeDisplay.popSouth(schedule)   #print southbound times
-            matrixControl.main()
             time.sleep(15)  # sleep
     except IOError:
         print "Caught IOError"

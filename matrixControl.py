@@ -17,16 +17,35 @@ __author__ = 'Terrace Boiz'
 import time
 import traceback
 
-import Image
-import ImageDraw
-import ImageFont
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+
 import mbtaTimeDisplay
-import mbtaJsonParse
-import Weather
-from rgbmatrix import Adafruit_RGBmatrix
+from scripts import mbtaJsonParse, Weather
 
 
-matrix = Adafruit_RGBmatrix(32, 2)
+class MockMatrix:
+    def __init__(self):
+        pass
+
+    def SetImage(self):
+        return
+
+    def Clear(self):
+        return
+
+    def SetImage(self, image, num1, num2):
+        return
+
+# if True:
+#     from rgbmatrix import RGBMatrix
+#     matrix = RGBMatrix(32, 2)
+# else:
+matrix = MockMatrix()
+
+
+
 font = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 8)
 message = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf", 22)
 train = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 11)
@@ -48,7 +67,7 @@ def main():
         draw.line((1, 9, 39, 9), fill="#000070")
         train_display()
         weather_display()
-        weather_icon = Image.open("sun2")
+        weather_icon = Image.open("resources/sun2")
         weather_icon.load()
         matrix.Clear()
         matrix.SetImage(image.im.id, 0, 0)

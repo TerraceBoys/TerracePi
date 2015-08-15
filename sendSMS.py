@@ -9,7 +9,7 @@ from collections import defaultdict
 
 import mbtaTimeDisplay
 import People
-import mbtaJsonParse
+from scripts import mbtaJsonParse
 
 
 username = 'terraceraspberrySMS'
