@@ -4,11 +4,10 @@ import Queue
 import threading
 
 from scripts import mbtaJsonParse, Weather, receiveMail, alertHandler
-import matrixControl
 import server
 
 
-files = [mbtaJsonParse, Weather, receiveMail, alertHandler, matrixControl, server]
+files = [mbtaJsonParse, Weather, receiveMail, alertHandler, server]
 q = Queue.Queue()
 
 

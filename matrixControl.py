@@ -16,6 +16,7 @@ __author__ = 'Terrace Boiz'
 
 import time
 import traceback
+import sys
 
 from PIL import Image
 from PIL import ImageDraw
@@ -37,12 +38,13 @@ class MockMatrix:
 
     def SetImage(self, image, num1, num2):
         return
-
-# if True:
-#     from rgbmatrix import RGBMatrix
-#     matrix = RGBMatrix(32, 2)
-# else:
-matrix = MockMatrix()
+args = sys.argv
+print(args)
+if len(args) > 1:
+    matrix = MockMatrix()
+else:
+    from rgbmatrix import RGBMatrix
+    matrix = RGBMatrix(32, 2)
 
 
 
