@@ -11,7 +11,6 @@ import helpDesk
 import sendSMS
 import personPicker
 import alertHandler
-import matrixControl
 
 
 username = 'terraceraspberrysms@gmail.com'
@@ -99,7 +98,6 @@ def handle_mail():
             print "New LED Messsage From: " + from_addr
             info = str.split(email_body)
             message = ' '.join(info)
-            matrixControl.pending_Text.append(message)
     except IndexError:
         return
     except:

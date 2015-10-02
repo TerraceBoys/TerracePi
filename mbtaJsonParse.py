@@ -4,9 +4,8 @@ import urllib
 import json
 import time
 import traceback
+import mbtaTimeDisplay
 from collections import defaultdict
-
-import matrixControl
 
 
 access_key = 'MpYsZaqkKkG6p8WOeKHLqA'
@@ -22,9 +21,8 @@ def main():
     try:
         while True:
             pop_dict(schedule, 'Roxbury')  # populate schedule dict
-            # mbtaTimeDisplay.popNorth(schedule)   #print northbound times
-            # mbtaTimeDisplay.popSouth(schedule)   #print southbound times
-            matrixControl.main()
+            print mbtaTimeDisplay.pop_north(schedule)   #print northbound times
+            print mbtaTimeDisplay.pop_south(schedule)   #print southbound times
             time.sleep(15)  # sleep
     except IOError:
         print "Caught IOError"

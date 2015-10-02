@@ -29,9 +29,9 @@ def grab_weather():
     response = urllib.urlopen(weather_url)
     global weather_data
     weather_data = json.loads(response.read().decode())
-    # print "Boston Weather:"
-    # print weather_data['current_observation']['weather']
-    # print weather_data['current_observation']['feelslike_f'] + " F"
+    print "Boston Weather:"
+    print weather_data['current_observation']['weather']
+    print weather_data['current_observation']['feelslike_f'] + " F"
 
 
 def weather_panel():
