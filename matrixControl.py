@@ -21,8 +21,8 @@ from rgbmatrix import Adafruit_RGBmatrix
 
 
 matrix = Adafruit_RGBmatrix(32, 2)
-font = ImageFont.truetype(config.fonts['header']['style'],config.fonts['header']['size'])
-message = ImageFont.truetype(config.fonts['scroll_message']['style'],config.fonts['scroll_message']['size'])
+header = ImageFont.truetype(config.fonts['header']['style'],config.fonts['header']['size'])
+scroll_message = ImageFont.truetype(config.fonts['scroll_message']['style'],config.fonts['scroll_message']['size'])
 train_times = ImageFont.truetype(config.fonts['train_times']['style'],config.fonts['train_times']['size'])
 weather = ImageFont.truetype(config.fonts['weather']['style'],config.fonts['weather']['size'])
 
@@ -34,7 +34,7 @@ def main():
     if len(pending_Text) == 0:
         image = Image.new("RGB", (64, 32))  # Can be larger than matrix iff wanted!!
         draw = ImageDraw.Draw(image)  # Declare Draw instance before prims
-        draw.text((2, 1), "1 TERRACE", font=font, fill="white")
+        draw.text((2, 1), "1 TERRACE", font=header, fill="white")
         draw.line((0, 0, 63, 0), fill="#000070")
         draw.line((0, 31, 63, 31), fill="#000070")
         draw.line((63, 1, 63, 30), fill="#000070")
@@ -51,7 +51,7 @@ def main():
     else:
         image = Image.new("RGB", (len(pending_Text[0]) * 10, 32))  # Can be larger than matrix iff wanted!!
         draw = ImageDraw.Draw(image)  # Declare Draw instance before prims
-        draw.text((0, 0), pending_Text[0], fill="white", font=message)
+        draw.text((0, 0), pending_Text[0], fill="white", font=scroll_message)
         for n in range(64, -image.size[0], -1):
             matrix.Clear()
             matrix.SetImage(image.im.id, n, 0)
@@ -64,11 +64,11 @@ def train_display():
     try:
         global draw
         train1, color1, train2, color2 = mbtaTimeDisplay.panel_train(mbtaJsonParse.schedule)
-        draw.text((4, 10), train1, font=train, fill=color1)
-        draw.text((4, 19), train2, font=train, fill=color2)
+        draw.text((4, 10), train1, font=train_times, fill=color1)
+        draw.text((4, 19), train2, font=train_times, fill=color2)
     except TypeError:
-        draw.text((4, 10), "No", font=train, fill="red")
-        draw.text((4, 19), "Trains", font=train, fill="red")
+        draw.text((4, 10), "No", font=train_times, fill="red")
+        draw.text((4, 19), "Trains", font=train_times, fill="red")
     except:
         print traceback.print_exc()
 
