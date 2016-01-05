@@ -55,13 +55,12 @@ def pop_dict(current_dict, station):
     if 'mode' in train_data:
         for mode in train_data['mode']:
             # If the mode is subway
-            if train_data['mode'][mode]['mode_name'] == 'Subway':
-                subway_routes = train_data['mode'][mode]
+            if mode['mode_name'] == 'Subway':
                 # for each route
-                for route in subway_routes:
+                for route in mode['route']:
                     # if route name is orange line
-                    if subway_routes['route'][route]['route_name'] == 'Orange Line':
-                        sort_trains(current_dict, subway_routes['route'][route])
+                    if route['route_id'] == 'Orange':
+                        sort_trains(current_dict, route)
                         break
             
 
@@ -69,12 +68,11 @@ def pop_dict(current_dict, station):
 def sort_trains(current_dict, orange_line):
     # for each direction
     for direction in orange_line['direction']:
-        in_or_out_trains = orange_line['direction'][direction]
         # For each train
-        for train in in_or_out_trains['trip']:
+        for trip in direction['trip']:
             # add each train to the schedule dict -> schedule['direction'].append(pre_away)
-            current_dict[in_or_out_trains['direction_name']].append(
-                int(in_or_out_trains['trip'][train]['pre_away']))
+            current_dict[direction['direction_name']].append(
+                int(trip['pre_away']))
 
 
 

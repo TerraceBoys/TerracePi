@@ -3,11 +3,7 @@ __author__ = 'Terrace Boiz'
 import Queue
 import threading
 
-import mbtaJsonParse
-import Weather
-import receiveMail
-import alertHandler
-import server
+import mbtaJsonParse,Weather,receiveMail,alertHandler,server
 
 
 files = [mbtaJsonParse, Weather, receiveMail, alertHandler, server]
