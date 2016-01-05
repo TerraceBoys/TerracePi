@@ -70,7 +70,9 @@ def train_display():
         global draw
         train1, color1, train2, color2 = mbtaTimeDisplay.panel_train(mbtaJsonParse.schedule)
         draw.line((4, 12, 35, 12), fill="white")
-        draw.line((6, 12, 7, 12), fill="red")
+        draw.point((6, 12), fill="red")
+        draw.point((10, 12), fill="yellow")
+        draw.point((15, 12), fill="green")
         draw.text((4, 12), train1, font=train, fill=color1)
     except TypeError:
         draw.text((4, 10), "No", font=train, fill="red")
