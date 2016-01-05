@@ -21,10 +21,10 @@ from rgbmatrix import Adafruit_RGBmatrix
 
 
 matrix = Adafruit_RGBmatrix(32, 2)
-font = ImageFont.truetype(config.fonts.header.style,config.fonts.header.size)
-message = ImageFont.truetype(config.fonts.scroll_message.style,config.fonts.scroll_message.size)
-train_times = ImageFont.truetype(config.fonts.train_times.style,config.fonts.train_times.size)
-weather = ImageFont.truetype(config.fonts.weather.style,config.fonts.weather.size)
+font = ImageFont.truetype(config.fonts['header']['style'],config.fonts['header']['size'])
+message = ImageFont.truetype(config.fonts['scroll_message']['style'],config.fonts['scroll_message']['size'])
+train_times = ImageFont.truetype(config.fonts['train_times']['style'],config.fonts['train_times']['size'])
+weather = ImageFont.truetype(config.fonts['weather']['style'],config.fonts['weather']['size'])
 
 pending_Text = []
 
