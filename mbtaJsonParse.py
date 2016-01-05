@@ -6,10 +6,10 @@ import time
 import traceback
 from collections import defaultdict
 
-import matrixControl
+import matrixControl, config
 
 
-access_key = 'MpYsZaqkKkG6p8WOeKHLqA'
+access_key = config.access_key_mbta
 train_url = 'http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=' + access_key + '&stop=place-'
 schedule = defaultdict(list)
 stationConverter = {'Forrest': 'forhl', 'Green': 'grnst', 'Stony': 'sbmnl', 'Jackson': 'jaksn', 'Roxbury': 'rcmnl',

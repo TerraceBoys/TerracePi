@@ -7,14 +7,12 @@ import platform
 import traceback
 from collections import defaultdict
 
-import mbtaTimeDisplay
-import People
-import mbtaJsonParse
+import mbtaTimeDisplay, People, mbtaJsonParse, config
 
 
-username = 'terraceraspberrySMS'
-password = 'TerraceRaspberryPi'
-fromaddr = 'terraceraspberrySMS@gmail.com'
+username = config.email['username']
+password = config.email['password']
+address = config.email['address']
 
 
 # Login to email client and send message
@@ -30,7 +28,7 @@ def send(msg, person):
         send(msg, person)
     r = msg.replace("\n", " ")
     print 'Sending message: ' + '"' + r + '"' + ' to ' + person.name
-    server.sendmail(fromaddr, person.number, msg)
+    server.sendmail(address, person.number, msg)
     log_sms(person.name, msg)
     server.quit()
 

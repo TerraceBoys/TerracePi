@@ -4,8 +4,9 @@ import urllib
 import json
 import time
 import traceback
+import config
 
-access_key = 'aceec2d6587b3b0c'
+access_key = config.access_key_weather
 weather_url = 'http://api.wunderground.com/api/' + access_key + '/conditions/q/MA/Roxbury_Crossing.json'
 spacer = "-------------------------------------------"
 

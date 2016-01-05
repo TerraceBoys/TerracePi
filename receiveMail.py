@@ -5,12 +5,12 @@ import email
 import time
 import traceback
 
-import People, helpDesk, sendSMS, personPicker, alertHandler, matrixControl
+import People, helpDesk, sendSMS, personPicker, alertHandler, matrixControl, config
 
 
 
-username = 'terraceraspberrysms@gmail.com'
-password = 'TerraceRaspberryPi'
+username = config.email['username']
+password = config.email['password']
 alerts = {}
 
 # Emails must be sent in the following format
