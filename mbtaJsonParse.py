@@ -61,12 +61,12 @@ def pop_dict(current_dict, station):
                 for route in subway_routes:
                     # if route name is orange line
                     if subway_routes['route'][route]['route_name'] == 'Orange Line':
-                        sort_trains(subway_routes['route'][route])
+                        sort_trains(current_dict, subway_routes['route'][route])
                         break
             
 
 # Takes in all inbound and outbound trains and sorts them
-def sort_trains(orange_line):
+def sort_trains(current_dict, orange_line):
     # for each direction
     for direction in orange_line['direction']:
         in_or_out_trains = orange_line['direction'][direction]
