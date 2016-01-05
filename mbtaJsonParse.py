@@ -31,6 +31,11 @@ def main():
         print traceback.print_exc()
         time.sleep(15)
         main()
+    except KeyError:
+        print "Caught IOError"
+        print traceback.print_exc()
+        time.sleep(15)
+        main()
     except:
         print "Caught Unhandled exception in mbtajsonparse main"
         print traceback.print_exc()
@@ -47,7 +52,7 @@ def get_station_json(station):
 def pop_dict(current_dict, station):
     train_data = get_station_json(station)
     current_dict.clear()
-    if len(train_data) > 1:
+    if 'mode' in train_data:
         for x in range(len(train_data['mode'])):
             # If the mode is subway
             if train_data['mode'][x]['mode_name'] == 'Subway':
