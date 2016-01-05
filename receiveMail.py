@@ -5,13 +5,8 @@ import email
 import time
 import traceback
 
-import People
-import insulter
-import helpDesk
-import sendSMS
-import personPicker
-import alertHandler
-import matrixControl
+import People, helpDesk, sendSMS, personPicker, alertHandler, matrixControl
+
 
 
 username = 'terraceraspberrysms@gmail.com'
@@ -72,16 +67,10 @@ def handle_mail():
         if subject == "alert":
             info = alertHandler.prepare_alert(str.split(email_body))
             # Station, direction, time, distance
-            if alertHandler.check_alert_format(sender, info):
-                People.add_alert(sender, info[0], info[1], info[2], int(info[3]))
-                print "New Custom Alert From: " + from_addr + " set to " + email_body
-        # Send Insult
-        elif subject == "insult":
-            info = str.split(email_body)
-            for i in info:
-                print "New Insult From: " + from_addr + " sending to " + i
-            insulter.send_insult(sender, info)
-        # Send Help Information
+            if alertHandler.checkAlertFormat(sender, info):
+                People.addAlert(sender, info[0], info[1], info[2], int(info[3]))
+                print "New Custom Alert From: " + fromAddr + " set to " + emailBody
+        #Send Help Information
         elif subject == "help":
             print "New Help Request From: " + from_addr
             helpDesk.send_help(sender)

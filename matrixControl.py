@@ -14,23 +14,18 @@ __author__ = 'Terrace Boiz'
 # PIL ImageDraw module (draw shapes to images) explained here:
 # http://effbot.org/imagingbook/imagedraw.htm
 
-import time
-import traceback
-
-import Image
-import ImageDraw
-import ImageFont
-import mbtaTimeDisplay
-import mbtaJsonParse
-import Weather
+import Image, ImageDraw, ImageFont
+import time, traceback
+import mbtaTimeDisplay, mbtaJsonParse, Weather, config
 from rgbmatrix import Adafruit_RGBmatrix
 
 
 matrix = Adafruit_RGBmatrix(32, 2)
-font = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 8)
-message = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf", 22)
-train = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 11)
-weather = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 10)
+font = ImageFont.truetype(config.fonts.header.style,config.fonts.header.size)
+message = ImageFont.truetype(config.fonts.scroll_message.style,config.fonts.scroll_message.size)
+train_times = ImageFont.truetype(config.fonts.train_times.style,config.fonts.train_times.size)
+weather = ImageFont.truetype(config.fonts.weather.style,config.fonts.weather.size)
+
 pending_Text = []
 
 
