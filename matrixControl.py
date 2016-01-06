@@ -45,7 +45,7 @@ def main():
         draw.line((63, 1, 63, 30), fill="#6600cc") #right
         draw.line((40, 1, 40, 30), fill="#6600cc") #middle-vert
         draw.line((0, 1, 0, 30), fill="#6600cc") #left
-        #draw.line((1, 9, 39, 9), fill="#6600cc") #middle-horiz
+        draw.line((1, 15, 39, 15), fill="#6600cc") #middle-horiz
         train_display()
         weather_display()
         weather_icon = Image.open("sun2")
