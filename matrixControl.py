@@ -84,8 +84,6 @@ def weather_display():
         current_weather, weather_color = Weather.weather_panel()
         draw.text((46, 3), current_weather, font=weather, fill=weather_color)
     except NameError:
-        print "Caught Name error"
-        print traceback.print_exc()
         draw.text((46, 3), "N\A", font=weather, fill="red")
     except:
         print "Caught unhandled exception in matrixcontrol.weatherDisplay"
