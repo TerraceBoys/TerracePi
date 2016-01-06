@@ -40,9 +40,9 @@ def main():
         image = Image.new("RGB", (64, 32))  # Can be larger than matrix iff wanted!!
         draw = ImageDraw.Draw(image)  # Declare Draw instance before prims
         #draw.rectangle((1, 16, 39, 30), fill="white")
+        #draw.text((2, 19), "l TERRACE", font=font, fill="white")
         terrace_icon = Image.open("terrace_icon")
         terrace_icon.load()
-        #draw.text((2, 19), "l TERRACE", font=font, fill="white")
         draw.line((0, 0, 63, 0), fill="#400080") #top
         draw.line((0, 31, 63, 31), fill="#400080") #bottom
         draw.line((63, 1, 63, 30), fill="#400080") #right
