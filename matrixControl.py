@@ -39,13 +39,13 @@ def main():
     if len(pending_Text) == 0:
         image = Image.new("RGB", (64, 32))  # Can be larger than matrix iff wanted!!
         draw = ImageDraw.Draw(image)  # Declare Draw instance before prims
-        draw.text((2, 1), "1 TERRACE", font=font, fill="white")
-        draw.line((0, 0, 63, 0), fill="#000070")
-        draw.line((0, 31, 63, 31), fill="#000070")
-        draw.line((63, 1, 63, 30), fill="#000070")
-        draw.line((40, 1, 40, 30), fill="#000070")
-        draw.line((0, 1, 0, 30), fill="#000070")
-        draw.line((1, 9, 39, 9), fill="#000070")
+        draw.text((2, 1), "l TERRACE", font=font, fill="white")
+        draw.line((0, 0, 63, 0), fill="#400080")
+        draw.line((0, 31, 63, 31), fill="#400080")
+        draw.line((63, 1, 63, 30), fill="#400080")
+        draw.line((40, 1, 40, 30), fill="#400080")
+        draw.line((0, 1, 0, 30), fill="#400080")
+        draw.line((1, 9, 39, 9), fill="#400080")
         train_display()
         weather_display()
         weather_icon = Image.open("sun2")
