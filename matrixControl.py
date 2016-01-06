@@ -39,13 +39,13 @@ def main():
     if len(pending_Text) == 0:
         image = Image.new("RGB", (64, 32))  # Can be larger than matrix iff wanted!!
         draw = ImageDraw.Draw(image)  # Declare Draw instance before prims
-        draw.text((2, 1), "1 TERRACE", font=font, fill="white")
-        draw.line((0, 0, 63, 0), fill="#000070")
-        draw.line((0, 31, 63, 31), fill="#000070")
-        draw.line((63, 1, 63, 30), fill="#000070")
-        draw.line((40, 1, 40, 30), fill="#000070")
-        draw.line((0, 1, 0, 30), fill="#000070")
-        draw.line((1, 9, 39, 9), fill="#000070")
+        #draw.text((2, 1), "1 TERRACE", font=font, fill="white")
+        draw.line((0, 0, 63, 0), fill="#6600cc") #top
+        draw.line((0, 31, 63, 31), fill="#6600cc") #bottom
+        draw.line((63, 1, 63, 30), fill="#6600cc") #right
+        #draw.line((40, 1, 40, 30), fill="#6600cc") #middle-vert
+        draw.line((0, 1, 0, 30), fill="#6600cc") #left
+        draw.line((1, 9, 39, 9), fill="#6600cc") #middle-horiz
         train_display()
         weather_display()
         weather_icon = Image.open("sun2")
@@ -69,13 +69,13 @@ def train_display():
     try:
         global draw
         train1, color1, allTrainMins = mbtaTimeDisplay.panel_train(mbtaJsonParse.schedule)
-        draw.line((4, 12, 35, 12), fill="grey")
+        draw.line((4, 3, 35, 12), fill="grey")
 
         for trainMin in allTrainMins:
             xPos = 4 + trainMin
-            draw.line((xPos, 11, xPos, 13), fill="yellow")
+            draw.line((xPos, 2, xPos, 3), fill="yellow")
 
-        draw.text((4, 13), train1, font=train, fill=color1)
+        draw.text((4, 4), train1, font=train, fill=color1)
     except TypeError:
         draw.text((4, 10), "No", font=train, fill="red")
         draw.text((4, 19), "Trains", font=train, fill="red")
