@@ -39,7 +39,7 @@ def main():
     if len(pending_Text) == 0:
         image = Image.new("RGB", (64, 32))  # Can be larger than matrix iff wanted!!
         draw = ImageDraw.Draw(image)  # Declare Draw instance before prims
-        draw.rectangle((1, 16, 35, 30), fill="purple")
+        draw.rectangle((1, 16, 39, 29), fill="red")
         draw.text((2, 19), "l TERRACE", font=font, fill="white")
         draw.line((0, 0, 63, 0), fill="#400080") #top
         draw.line((0, 31, 63, 31), fill="#400080") #bottom
