@@ -39,8 +39,10 @@ def main():
     if len(pending_Text) == 0:
         image = Image.new("RGB", (64, 32))  # Can be larger than matrix iff wanted!!
         draw = ImageDraw.Draw(image)  # Declare Draw instance before prims
-        draw.rectangle((1, 16, 39, 29), fill="red")
-        draw.text((2, 19), "l TERRACE", font=font, fill="white")
+        #draw.rectangle((1, 16, 39, 30), fill="white")
+        terrace_icon = Image.open("terrace_icon")
+        terrace_icon.load()
+        #draw.text((2, 19), "l TERRACE", font=font, fill="white")
         draw.line((0, 0, 63, 0), fill="#400080") #top
         draw.line((0, 31, 63, 31), fill="#400080") #bottom
         draw.line((63, 1, 63, 30), fill="#400080") #right
@@ -53,6 +55,7 @@ def main():
         weather_icon.load()
         matrix.Clear()
         matrix.SetImage(image.im.id, 0, 0)
+        matrix.SetImage(terrace_icon.im.id, 1, 16)
         matrix.SetImage(weather_icon.im.id, 44, 13)
     else:
         image = Image.new("RGB", (len(pending_Text[0]) * 10, 32))  # Can be larger than matrix iff wanted!!
