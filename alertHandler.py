@@ -13,7 +13,7 @@ def main():
     try:
         while True:
             handle_custom_alerts()
-            handle_daily_alerts()
+            # handle_daily_alerts()
             time.sleep(15)
     except:
         print "Error in alertHandler"
