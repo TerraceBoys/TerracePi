@@ -1,8 +1,9 @@
 # TerracePi
-Repository for raspberry pi fun
 
-2 Running threads:  
-1. Tracks Roxbury Crossing train arrival times from MBTA API  
-    - Refreshes every 10 seconds  
-2. Tracks Boston current weather condition from Weather Underground API  
-    - Refreshes every 15 seconds  
+## Setting up the Pi
+
+Setting up Wifi: https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
+
+Install VNC: https://www.raspberrypi.org/documentation/remote-access/vnc/
+- Also, `sudo nano /etc/rc.local`
+- `sudo /etc/init.d/vncboot start`
