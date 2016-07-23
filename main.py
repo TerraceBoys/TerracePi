@@ -10,7 +10,7 @@ import alertHandler
 import server
 
 
-files = [mbtaJsonParse, Weather, receiveMail, alertHandler, server]
+files = [mbtaJsonParse, Weather, receiveMail, alertHandler]
 q = Queue.Queue()
 
 
