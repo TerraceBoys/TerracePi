@@ -12,5 +12,5 @@ https://www.raspberrypi.org/documentation/remote-access/vnc/
 
 Start Script on Boot & Nightly @ 3am:
 - `crontab -e`
-- Add `0 3 * * * * /home/pi/Desktop/TerracePi/refresh.sh &`
+- Add `0 3 * * * /home/pi/Desktop/TerracePi/refresh.sh &`
 - Add `@reboot /home/pi/Desktop/TerracePi/refresh.sh &`
