@@ -36,6 +36,10 @@ def main():
         print traceback.print_exc()
         time.sleep(15)
         main()
+    except ValueError:
+        print traceback.print_exc()
+        time.sleep(60)
+        main()
     except:
         print "Caught Unhandled exception in mbtajsonparse main"
         print traceback.print_exc()
