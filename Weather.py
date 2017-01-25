@@ -4,17 +4,24 @@ import urllib
 import json
 import time
 import traceback
+import matrixControl
 
 access_key = 'aceec2d6587b3b0c'
 weather_url = 'http://api.wunderground.com/api/' + access_key + '/conditions/q/MA/Roxbury_Crossing.json'
 spacer = "-------------------------------------------"
 
 
-def main():
+def main(matrix):
     try:
         while True:
             grab_weather()
-            time.sleep(300)
+            current_weather, color = weather_panel()
+            matrixControl.set_weather(current_weather, color)
+            matrixControl.main(matrix)
+            for x in range(300):
+                time.sleep(1)
+    except SystemExit:
+        print "Thread terminated"
     except IOError:
         print "Caught IOError while Loading Weather - Trying Again"
         print traceback.print_exc()
@@ -37,7 +44,7 @@ def grab_weather():
 def weather_panel():
     global weather_data
     temperature = int(float(weather_data['current_observation']['feelslike_f']))
-    return str(temperature) + u"\u00b0", get_temp_color(temperature)
+    return str(temperature), get_temp_color(temperature)
 
 
 # Determine display color for temperature

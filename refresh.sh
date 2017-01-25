@@ -10,5 +10,5 @@ sleep 2
 git pull
 sleep 5
 echo $timestamp >> ../errors.txt
-sudo python main.py 2>> ../errors.txt
+sudo python server.py 2>> ../errors.txt
 
