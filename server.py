@@ -12,34 +12,13 @@ c = controller
 @app.route("/mbta")
 def switch_mbta():
     run_thread(c.setup_run)
-    return "Maybe no error"
+    return "Should be mbta"
 
 @app.route("/baseball")
 def switch_baseball():
     c.kill_threads()
     run_thread(baseball.main)
-    return "SHould be baseball"
-
-@app.route("/baseball/kill")
-def kill_baseball():
-    global t 
-    if t and t.isAlive():
-        t.terminate()
-        t.join()
-    return "Baseball killed?"    
-
-@app.route("/mbta/kill")
-def kill_mbta():
-    print "Prep kill"
-    c.kill_threads()
-    print "Post controller call"
-    global t
-    if t and t.isAlive(): 
-       t.terminate()
-       t.join()
-    print "post terminate"
-    print "Post join"
-    return "Hopefully kill"
+    return "Should be baseball"
 
 def run_thread(f):
     matrix.Clear()
