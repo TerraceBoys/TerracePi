@@ -1,18 +1,4 @@
-__author__ = 'Terrace Boiz'
-
 # !/usr/bin/python
-
-# A more complex RGBMatrix example works with the Python Imaging Library,
-# demonstrating a few graphics primitives and image loading.
-# Note that PIL graphics do not have an immediate effect on the display --
-# image is drawn into a separate buffer, which is then copied to the matrix
-# using the SetImage() function (see examples below).
-# Requires rgbmatrix.so present in the same directory.
-
-# PIL Image module (create or load images) is explained here:
-# http://effbot.org/imagingbook/image.htm
-# PIL ImageDraw module (draw shapes to images) explained here:
-# http://effbot.org/imagingbook/imagedraw.htm
 
 import time
 import traceback
@@ -22,7 +8,6 @@ import ImageDraw
 import ImageFont
 import mbtaTimeDisplay
 
-#matrix = Adafruit_RGBmatrix(32, 2)
 font = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 8)
 message = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSerif.ttf", 22)
 train = ImageFont.truetype("/usr/share/fonts/truetype/droid/DroidSans.ttf", 11)
@@ -38,7 +23,7 @@ def main(matrix):
     setup_board()
     train_display()
     weather_display()
-    weather_icon = Image.open("sun2")
+    weather_icon = Image.open("images/sun2")
     weather_icon.load()
     matrix.Clear()
     matrix.SetImage(image.im.id, 0, 0)
