@@ -4,13 +4,12 @@ import urllib
 import json
 import time
 import traceback
+import config
 from collections import defaultdict
 
 import matrixControl
 
-
-access_key = 'MpYsZaqkKkG6p8WOeKHLqA'
-train_url = 'http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=' + access_key + '&stop=place-'
+train_url = 'http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=' + config.MBTA_API_KEY + '&stop=place-'
 schedule = defaultdict(list)
 stationConverter = {'Forrest': 'forhl', 'Green': 'grnst', 'Stony': 'sbmnl', 'Jackson': 'jaksn', 'Roxbury': 'rcmnl',
                     'Ruggles': 'rugg', 'Mass': 'masta', 'Back': 'bbsta', 'Tufts': 'nemnl', 'Chinatown': 'chncl',
@@ -22,8 +21,6 @@ def main(matrix):
     try:
         while True:
             pop_dict(schedule, 'Roxbury')  # populate schedule dict
-            # mbtaTimeDisplay.popNorth(schedule)   #print northbound times
-            # mbtaTimeDisplay.popSouth(schedule)   #print southbound times
             matrixControl.set_mbta(schedule)
             matrixControl.main(matrix)
             for x in range(15):
@@ -34,16 +31,16 @@ def main(matrix):
         print "Caught IOError"
         print traceback.print_exc()
         time.sleep(15)
-        main()
+        main(matrix)
     except KeyError:
         print "Caught IOError"
         print traceback.print_exc()
         time.sleep(15)
-        main()
+        main(matrix)
     except ValueError:
         print traceback.print_exc()
         time.sleep(60)
-        main()
+        main(matrix)
     except:
         print "Caught Unhandled exception in mbtajsonparse main"
         print traceback.print_exc()
@@ -77,7 +74,3 @@ def pop_dict(current_dict, station):
                                     train_data['mode'][x]['route'][r]['direction'][y]['direction_name']].append(
                                     int(train_data['mode'][x]['route'][r]['direction'][y]['trip'][z]['pre_away']))
                 break
-
-
-
-
